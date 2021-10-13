@@ -24,29 +24,12 @@ public class FrmPrincipal extends JFrame {
 
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FrmPrincipal frame = new FrmPrincipal();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public FrmPrincipal() {
+		
 		// CONFIGURACION FRAME
 		setTitle("Window Builder");
 		
+		//setDefaultCloseOperation(EXIT_ON_CLOSE);
 		addWindowListener(
 				new WindowAdapter() {
 					public void windowClosing(WindowEvent we) {
@@ -54,7 +37,7 @@ public class FrmPrincipal extends JFrame {
 
 					}
 				});
-		
+
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -78,13 +61,18 @@ public class FrmPrincipal extends JFrame {
 		mnEditar.add(mntmColores);
 		mnEditar.addSeparator();
 		mnEditar.add(mntmSalir);
+		setVisible(true);
 		
 	}
 	
-	private static void salir() {
+	private void salir() {
 		int iOpcSeleccionada = JOptionPane.showConfirmDialog(null,"Estas seguro que quiere salir?", "Asistente de salida", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
-		if (iOpcSeleccionada == 0) {
-			System.exit(0);
+		if (iOpcSeleccionada == JOptionPane.YES_OPTION) {
+			//System.exit(0);
+			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		} else {
+			setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		}
 	}
 }
