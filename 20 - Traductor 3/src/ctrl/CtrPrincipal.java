@@ -2,6 +2,7 @@ package ctrl;
 
 import java.awt.Color;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import view.Principal;
@@ -72,5 +73,15 @@ public class CtrPrincipal {
 		view.Principal.lblTest.setText(model.Languages.aEng.get(numPreg));
 		view.Principal.lblResultado.setText("");
 		view.Principal.tfEscritura.setText("");
+	}
+	
+	public static void salir() {
+		int iOpcion = JOptionPane.showConfirmDialog(null, "Desea salir?","Salir",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+		
+		if (iOpcion == JOptionPane.YES_OPTION) {
+			view.Principal.ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		} else {
+			view.Principal.ventana.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		}
 	}
 }
