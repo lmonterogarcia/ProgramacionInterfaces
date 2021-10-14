@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Random;
@@ -28,7 +29,7 @@ public class Principal extends JFrame {
 	public static JLabel lblTest = new JLabel("HELLO");
 
 	public Principal() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Usuario\\Desktop\\world.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("faviconAhoraViajar.png"));
 		setTitle("Idiomas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 250, 232);
