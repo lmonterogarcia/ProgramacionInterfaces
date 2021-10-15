@@ -31,7 +31,7 @@ public class FrmPrincipal extends JFrame {
 	public static JTextField txtNombre;
 	public static JTextField txtNumTel;
 	public static JLabel lblNumTel;
-	public static DefaultListModel<String> sModel = new DefaultListModel<>();
+	public static DefaultListModel<String> sModel = new DefaultListModel<String>();;
 
 	/**
 	 * Create the frame.
@@ -40,6 +40,7 @@ public class FrmPrincipal extends JFrame {
 
 		ventana = this;
 //		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Agenda Telefonica");
 		setBounds(100, 100, 393, 376);
 		contentPane = new JPanel();
 		contentPane.setLayout(null);
@@ -102,9 +103,6 @@ public class FrmPrincipal extends JFrame {
 		btnGuardar.addActionListener(e -> ctrl.CtrlPrinciapl.guardar());
 		lstAgenda.addListSelectionListener(e -> {
 			view.FrmPrincipal.btnEditar.setEnabled(true);
-			view.FrmPrincipal.btnGuardar.setVisible(false);
-			view.FrmPrincipal.txtNombre.setVisible(false);
-			view.FrmPrincipal.txtNumTel.setVisible(false);
 			ctrl.CtrlPrinciapl.mostarNumero();
 		});
 

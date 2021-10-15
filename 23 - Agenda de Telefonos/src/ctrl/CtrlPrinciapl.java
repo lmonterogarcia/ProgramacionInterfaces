@@ -13,18 +13,57 @@ public class CtrlPrinciapl {
 	private static File fch;
 
 	public static void inicio() {
-
+		abrirAgenda();
 		new view.FrmPrincipal();
 	}
 
-	public static void abrirAgenda() {
-		fch = new File(leerRuta());
-		aPersonas = leerAgenda(fch);
-		mostarNombres();
-
+//	public static void pulsarabrirAgenda() {
+//		
+//		if (view.FrmPrincipal.btnGuardarAgenda.isEnabled()) {
+//			int iOpcSeleccionada = JOptionPane.showConfirmDialog(null,"Desea guardar los cambios en la agenda antes de abrir otra?", "Asistente de guardado", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+//			if (iOpcSeleccionada == JOptionPane.YES_OPTION) {
+//				
+//				guardarAgenda();
+//				abrirAgenda();
+//
+//			} else if (iOpcSeleccionada == JOptionPane.NO_OPTION){
+//				JOptionPane.showInternalMessageDialog(null, "Se han perdido los cambios","Agenda Telefonica",JOptionPane.PLAIN_MESSAGE);
+//				abrirAgenda();
+//			} 
+//		} else {
+//			abrirAgenda();
+//		}
+//		
+//	}
+//	
+//	public static void abrirAgenda() {
+//		
+//		if (view.FrmPrincipal.sModel == null) {
+//			fch = new File(leerRuta());
+//			aPersonas = leerAgenda(fch);
+//			mostarNombres();
+//		} else {
+//			view.FrmPrincipal.sModel.removeAllElements();
+//			view.FrmPrincipal.sModel = new DefaultListModel<String>();
+//			fch = new File(leerRuta());
+//			aPersonas = leerAgenda(fch);
+//			mostarNombres();
+//		}
+//		
+//		
+//	}
+	
+public static void abrirAgenda() {
+		
+	fch = new File(leerRuta());
+	aPersonas = leerAgenda(fch);
+	mostarNombres();
+		
+		
 	}
 
 	private static void mostarNombres() {
+		
 		for (int i = 0;i < aPersonas.size(); i++) {
 			view.FrmPrincipal.sModel.addElement(aPersonas.get(i).getsNombre());
 		}
@@ -67,6 +106,7 @@ public class CtrlPrinciapl {
 	private static String leerRuta() {
 		String sRuta  ="";
 		JFileChooser selectorFch = new JFileChooser();
+		selectorFch.setDialogTitle("Eliga la AGENDA que quiere abrir");
 		selectorFch.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		FileNameExtensionFilter imgFilter = new FileNameExtensionFilter("Formato de Agenda", "txt");
 		selectorFch.setFileFilter(imgFilter);
@@ -108,7 +148,8 @@ public class CtrlPrinciapl {
 
 			buffWriter.flush();
 			buffWriter.close();
-			JOptionPane.showInternalMessageDialog(null, "La agenda se ha guardado correctamente");
+			JOptionPane.showInternalMessageDialog(null, "La agenda se ha guardado correctamente","Agenda Telefonica",JOptionPane.PLAIN_MESSAGE);
+			view.FrmPrincipal.btnGuardarAgenda.setEnabled(false);
 		} catch (FileNotFoundException e) {
 			System.out.println("El fichero no existe");
 		} catch (IOException ioe){
@@ -117,25 +158,25 @@ public class CtrlPrinciapl {
 	}
 
 	public static void editar() {
-		String sNumTel = aPersonas.get(view.FrmPrincipal.lstAgenda.getSelectedIndex()).getsNumTel();
-		String sNombre = aPersonas.get(view.FrmPrincipal.lstAgenda.getSelectedIndex()).getsNombre();		
-
+				
 		view.FrmPrincipal.btnGuardar.setVisible(true);
-		view.FrmPrincipal.txtNombre.setText(sNombre);
 		view.FrmPrincipal.txtNombre.setVisible(true);
 		view.FrmPrincipal.txtNumTel.setVisible(true);
-		view.FrmPrincipal.txtNumTel.setText(sNumTel);
 	}
 
 	public static void guardar() {
 		int iPosicion = view.FrmPrincipal.lstAgenda.getSelectedIndex();
-		view.FrmPrincipal.btnGuardarAgenda.setEnabled(true);
+		
 		String sNumTel = view.FrmPrincipal.txtNumTel.getText();
 		String sNombre = view.FrmPrincipal.txtNombre.getText();
 		Persona aPersona = new Persona(sNombre.trim(),sNumTel.trim());
+		
 		aPersonas.set(iPosicion, aPersona);
 		view.FrmPrincipal.sModel.setElementAt(sNombre, iPosicion);
 		mostarNumero();
+		
+		
+		view.FrmPrincipal.btnGuardarAgenda.setEnabled(true);
 		view.FrmPrincipal.btnGuardar.setVisible(false);
 		view.FrmPrincipal.txtNombre.setVisible(false);
 		view.FrmPrincipal.txtNumTel.setVisible(false);
@@ -143,22 +184,29 @@ public class CtrlPrinciapl {
 	}
 
 	public static void mostarNumero() {
-		String sNumTel = aPersonas.get(view.FrmPrincipal.lstAgenda.getSelectedIndex()).getsNumTel();
+		int iPosicion = view.FrmPrincipal.lstAgenda.getSelectedIndex();
+		String sNumTel = aPersonas.get(iPosicion).getsNumTel();
+		String sNombre = aPersonas.get(iPosicion).getsNombre();
+
+		view.FrmPrincipal.txtNombre.setText(sNombre);
+		view.FrmPrincipal.txtNumTel.setText(sNumTel);
 		view.FrmPrincipal.lblNumTel.setText(sNumTel);
 	}
 
 	public static void salir() {
 		
 		if (view.FrmPrincipal.btnGuardarAgenda.isEnabled()) {
-			int iOpcSeleccionada = JOptionPane.showConfirmDialog(null,"Desea guardar los cambios antes de salir?", "Asistente de salida", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
+			int iOpcSeleccionada = JOptionPane.showConfirmDialog(null,"Desea guardar los cambios en la agenda antes de salir?", "Asistente de guardado", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 			if (iOpcSeleccionada == JOptionPane.YES_OPTION) {
 				
 				guardarAgenda();
 				view.FrmPrincipal.ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-			} else {
+			} else if (iOpcSeleccionada == JOptionPane.NO_OPTION){
 				view.FrmPrincipal.ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+			} else {
+				view.FrmPrincipal.ventana.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 			}
 		} else {
 			System.exit(0);
