@@ -5,19 +5,24 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JList;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 
 public class FrmPrincipal extends JFrame {
 
 	private JPanel contentPane;
+	public static JFrame ventana;
 	public static JList lstAgenda;
 	public static JButton btnAbrirAgenda;
 	public static JButton btnGuardarAgenda;
@@ -26,30 +31,43 @@ public class FrmPrincipal extends JFrame {
 	public static JTextField txtNombre;
 	public static JTextField txtNumTel;
 	public static JLabel lblNumTel;
+	public static DefaultListModel<String> sModel = new DefaultListModel<>();
 
 	/**
 	 * Create the frame.
 	 */
 	public FrmPrincipal() {
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 393, 450);
+		ventana = this;
+//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 393, 376);
 		contentPane = new JPanel();
 		contentPane.setLayout(null);
-		setContentPane(contentPane);
+		
+		addWindowListener(
+				new WindowAdapter() {
+					public void windowClosing(WindowEvent we) {
+						ctrl.CtrlPrinciapl.salir();
 
-		lstAgenda = new JList();
-		lstAgenda.setBounds(34, 31, 152, 308);
+					}
+				});
+		
+		lstAgenda = new JList(sModel);
+//		lstAgenda.setBounds(34, 31, 152, 308);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(34, 31, 152, 252);
+		scrollPane.setViewportView(lstAgenda);
 
 
 		btnAbrirAgenda = new JButton("Abrir Agenda");
 		btnAbrirAgenda.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		btnAbrirAgenda.setBounds(6, 369, 190, 40);
+		btnAbrirAgenda.setBounds(6, 295, 190, 40);
 
 
 		btnGuardarAgenda = new JButton("Guardar Agenda");
 		btnGuardarAgenda.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		btnGuardarAgenda.setBounds(201, 369, 190, 40);
+		btnGuardarAgenda.setBounds(197, 295, 190, 40);
+		btnGuardarAgenda.setEnabled(false);
 
 		btnGuardar = new JButton("Guardar");
 		btnGuardar.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
@@ -59,20 +77,21 @@ public class FrmPrincipal extends JFrame {
 
 		btnEditar = new JButton("Editar");
 		btnEditar.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
-		btnEditar.setBounds(234, 310, 117, 29);
+		btnEditar.setBounds(234, 259, 117, 29);
+		btnEditar.setEnabled(false);
 
 		txtNombre = new JTextField();
-		txtNombre.setBounds(211, 122, 152, 36);
+		txtNombre.setBounds(211, 125, 152, 36);
 		txtNombre.setColumns(10);
 		txtNombre.setVisible(false);
 
 		txtNumTel = new JTextField();
-		txtNumTel.setBounds(211, 170, 152, 36);
+		txtNumTel.setBounds(211, 175, 152, 36);
 		txtNumTel.setColumns(10);
 		txtNumTel.setVisible(false);
 
 		lblNumTel = new JLabel("");
-		lblNumTel.setFont(new Font("Lucida Grande", Font.PLAIN, 25));
+		lblNumTel.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
 		lblNumTel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNumTel.setBounds(211, 44, 152, 42);
 
@@ -81,10 +100,16 @@ public class FrmPrincipal extends JFrame {
 		btnGuardarAgenda.addActionListener(e -> ctrl.CtrlPrinciapl.guardarAgenda());
 		btnEditar.addActionListener(e -> ctrl.CtrlPrinciapl.editar());
 		btnGuardar.addActionListener(e -> ctrl.CtrlPrinciapl.guardar());
-		lstAgenda.addListSelectionListener(e -> ctrl.CtrlPrinciapl.mostarNumero());
+		lstAgenda.addListSelectionListener(e -> {
+			view.FrmPrincipal.btnEditar.setEnabled(true);
+			view.FrmPrincipal.btnGuardar.setVisible(false);
+			view.FrmPrincipal.txtNombre.setVisible(false);
+			view.FrmPrincipal.txtNumTel.setVisible(false);
+			ctrl.CtrlPrinciapl.mostarNumero();
+		});
 
 		// Aniadir al Frame
-		contentPane.add(lstAgenda);
+		contentPane.add(scrollPane);
 		contentPane.add(btnAbrirAgenda);
 		contentPane.add(btnGuardarAgenda);
 		contentPane.add(btnGuardar);
@@ -92,6 +117,8 @@ public class FrmPrincipal extends JFrame {
 		contentPane.add(txtNombre);
 		contentPane.add(txtNumTel);
 		contentPane.add(lblNumTel);
+		setContentPane(contentPane);
+		
 
 
 		setVisible(true);
