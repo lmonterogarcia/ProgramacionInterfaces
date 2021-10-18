@@ -13,8 +13,9 @@ public class CtrlPrinciapl {
 	private static File fch;
 
 	public static void inicio() {
-		abrirAgenda();
+		
 		new view.FrmPrincipal();
+		abrirAgenda();
 	}
 
 	public static void pulsarAbrirAgenda() {
@@ -119,9 +120,7 @@ public class CtrlPrinciapl {
 
 		boolean booPrimera = true;
 
-		view.FrmPrincipal.btnGuardar.setVisible(false);
-		view.FrmPrincipal.txtNombre.setVisible(false);
-		view.FrmPrincipal.txtNumTel.setVisible(false);
+		limpiar();
 
 		try {
 
@@ -176,29 +175,14 @@ public class CtrlPrinciapl {
 	}
 
 	public static void mostarNumero() {
-//		System.out.println("Entra1");
 		int iPosicion = view.FrmPrincipal.lstAgenda.getSelectedIndex();
-//		System.out.println("Entra2");
 		
 		String sNumTel = aPersonas.get(iPosicion).getsNumTel();
-//		System.out.println("Entra3");
 		String sNombre = aPersonas.get(iPosicion).getsNombre();
-//		System.out.println("Entra4");
 		
 		view.FrmPrincipal.txtNombre.setText(sNombre);
 		view.FrmPrincipal.txtNumTel.setText(sNumTel);
 		view.FrmPrincipal.lblNumTel.setText(sNumTel);
-		
-//		if (iPosicion >= 0) {
-//			String sNumTel = aPersonas.get(iPosicion).getsNumTel();
-//			System.out.println("Entra3");
-//			String sNombre = aPersonas.get(iPosicion).getsNombre();
-//			System.out.println("Entra4");
-//			
-//			view.FrmPrincipal.txtNombre.setText(sNombre);
-//			view.FrmPrincipal.txtNumTel.setText(sNumTel);
-//			view.FrmPrincipal.lblNumTel.setText(sNumTel);
-//		}
 		
 		
 	}

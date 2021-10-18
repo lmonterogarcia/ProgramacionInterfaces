@@ -1,25 +1,8 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.JList;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.ActionEvent;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 public class FrmPrincipal extends JFrame {
 
@@ -56,7 +39,6 @@ public class FrmPrincipal extends JFrame {
 				});
 		
 		lstAgenda = new JList(sModel);
-//		lstAgenda.setBounds(34, 31, 152, 308);
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(34, 31, 152, 252);
 		scrollPane.setViewportView(lstAgenda);
@@ -103,24 +85,12 @@ public class FrmPrincipal extends JFrame {
 		btnGuardarAgenda.addActionListener(e -> ctrl.CtrlPrinciapl.guardarAgenda());
 		btnEditar.addActionListener(e -> ctrl.CtrlPrinciapl.editar());
 		btnGuardar.addActionListener(e -> ctrl.CtrlPrinciapl.guardar());
-		
 		lstAgenda.addListSelectionListener(e -> {
 			if (e.getValueIsAdjusting()) {
 				view.FrmPrincipal.btnEditar.setEnabled(true);
 				ctrl.CtrlPrinciapl.mostarNumero();
 			}
 		});
-		
-//		lstAgenda.addListSelectionListener(new ListSelectionListener() {
-//		    @Override
-//		    public void valueChanged(ListSelectionEvent e) {
-//		    	if (e.) {
-//					
-//				}
-//		    	view.FrmPrincipal.btnEditar.setEnabled(true);
-//				ctrl.CtrlPrinciapl.mostarNumero();
-//		    }
-//		  });
 
 		// Aniadir al Frame
 		contentPane.add(scrollPane);
