@@ -17,49 +17,41 @@ public class CtrlPrinciapl {
 		new view.FrmPrincipal();
 	}
 
-//	public static void pulsarabrirAgenda() {
-//		
-//		if (view.FrmPrincipal.btnGuardarAgenda.isEnabled()) {
-//			int iOpcSeleccionada = JOptionPane.showConfirmDialog(null,"Desea guardar los cambios en la agenda antes de abrir otra?", "Asistente de guardado", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-//			if (iOpcSeleccionada == JOptionPane.YES_OPTION) {
-//				
-//				guardarAgenda();
-//				abrirAgenda();
-//
-//			} else if (iOpcSeleccionada == JOptionPane.NO_OPTION){
-//				JOptionPane.showInternalMessageDialog(null, "Se han perdido los cambios","Agenda Telefonica",JOptionPane.PLAIN_MESSAGE);
-//				abrirAgenda();
-//			} 
-//		} else {
-//			abrirAgenda();
-//		}
-//		
-//	}
-//	
-//	public static void abrirAgenda() {
-//		
-//		if (view.FrmPrincipal.sModel == null) {
-//			fch = new File(leerRuta());
-//			aPersonas = leerAgenda(fch);
-//			mostarNombres();
-//		} else {
-//			view.FrmPrincipal.sModel.removeAllElements();
-//			view.FrmPrincipal.sModel = new DefaultListModel<String>();
-//			fch = new File(leerRuta());
-//			aPersonas = leerAgenda(fch);
-//			mostarNombres();
-//		}
-//		
-//		
-//	}
+	public static void pulsarAbrirAgenda() {
+		limpiar();
+		if (view.FrmPrincipal.btnGuardarAgenda.isEnabled()) {
+			int iOpcSeleccionada = JOptionPane.showConfirmDialog(null,"Desea guardar los cambios en la agenda antes de abrir otra?", "Asistente de guardado", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+			if (iOpcSeleccionada == JOptionPane.YES_OPTION) {
+				
+				guardarAgenda();
+				abrirAgenda();
+
+			} else if (iOpcSeleccionada == JOptionPane.NO_OPTION){
+				JOptionPane.showInternalMessageDialog(null, "Se han perdido los cambios","Agenda Telefonica",JOptionPane.PLAIN_MESSAGE);
+				abrirAgenda();
+			} 
+		} else {
+			abrirAgenda();
+		}	
+	}
 	
-public static void abrirAgenda() {
+	private static void limpiar() {
 		
-	fch = new File(leerRuta());
-	aPersonas = leerAgenda(fch);
-	mostarNombres();
-		
-		
+		view.FrmPrincipal.btnGuardar.setVisible(false);
+		view.FrmPrincipal.txtNombre.setVisible(false);
+		view.FrmPrincipal.txtNumTel.setVisible(false);
+		view.FrmPrincipal.txtNombre.setText("");
+		view.FrmPrincipal.txtNumTel.setText("");
+		view.FrmPrincipal.lblNumTel.setText("");
+	}
+	
+	public static void abrirAgenda() {
+
+			view.FrmPrincipal.sModel.clear();
+			fch = new File(leerRuta());
+			aPersonas = leerAgenda(fch);
+			mostarNombres();
+
 	}
 
 	private static void mostarNombres() {
@@ -184,13 +176,31 @@ public static void abrirAgenda() {
 	}
 
 	public static void mostarNumero() {
+//		System.out.println("Entra1");
 		int iPosicion = view.FrmPrincipal.lstAgenda.getSelectedIndex();
+//		System.out.println("Entra2");
+		
 		String sNumTel = aPersonas.get(iPosicion).getsNumTel();
+//		System.out.println("Entra3");
 		String sNombre = aPersonas.get(iPosicion).getsNombre();
-
+//		System.out.println("Entra4");
+		
 		view.FrmPrincipal.txtNombre.setText(sNombre);
 		view.FrmPrincipal.txtNumTel.setText(sNumTel);
 		view.FrmPrincipal.lblNumTel.setText(sNumTel);
+		
+//		if (iPosicion >= 0) {
+//			String sNumTel = aPersonas.get(iPosicion).getsNumTel();
+//			System.out.println("Entra3");
+//			String sNombre = aPersonas.get(iPosicion).getsNombre();
+//			System.out.println("Entra4");
+//			
+//			view.FrmPrincipal.txtNombre.setText(sNombre);
+//			view.FrmPrincipal.txtNumTel.setText(sNumTel);
+//			view.FrmPrincipal.lblNumTel.setText(sNumTel);
+//		}
+		
+		
 	}
 
 	public static void salir() {

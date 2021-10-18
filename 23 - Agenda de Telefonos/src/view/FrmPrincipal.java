@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -97,14 +99,28 @@ public class FrmPrincipal extends JFrame {
 		lblNumTel.setBounds(211, 44, 152, 42);
 
 		// EVENTOS
-		btnAbrirAgenda.addActionListener(e -> ctrl.CtrlPrinciapl.abrirAgenda());
+		btnAbrirAgenda.addActionListener(e -> ctrl.CtrlPrinciapl.pulsarAbrirAgenda());
 		btnGuardarAgenda.addActionListener(e -> ctrl.CtrlPrinciapl.guardarAgenda());
 		btnEditar.addActionListener(e -> ctrl.CtrlPrinciapl.editar());
 		btnGuardar.addActionListener(e -> ctrl.CtrlPrinciapl.guardar());
+		
 		lstAgenda.addListSelectionListener(e -> {
-			view.FrmPrincipal.btnEditar.setEnabled(true);
-			ctrl.CtrlPrinciapl.mostarNumero();
+			if (e.getValueIsAdjusting()) {
+				view.FrmPrincipal.btnEditar.setEnabled(true);
+				ctrl.CtrlPrinciapl.mostarNumero();
+			}
 		});
+		
+//		lstAgenda.addListSelectionListener(new ListSelectionListener() {
+//		    @Override
+//		    public void valueChanged(ListSelectionEvent e) {
+//		    	if (e.) {
+//					
+//				}
+//		    	view.FrmPrincipal.btnEditar.setEnabled(true);
+//				ctrl.CtrlPrinciapl.mostarNumero();
+//		    }
+//		  });
 
 		// Aniadir al Frame
 		contentPane.add(scrollPane);
