@@ -1,0 +1,20 @@
+<html><pre>--- MANUAL ---
+
+MENU:
+
+Archivo
+	
+Nuevo: Crea un nuevo documento. Si hay un documento en el programa que no ha sido guardado preguntara si se quiere guardar.
+
+Abrir: Abre un docuemnto ya creado anteriormente. Se abre una dialogo de apertura de archivo.
+
+Guardar: Guarda el archivo que esta abierto en el fichero asociado, si no hay archivo abierto no guarda. Si el texto no tiene un archivo relacionado se activara "Guardar Como".
+
+Guardar Como: Guardara el archivo en el archivo que introduzca el usuario.
+
+Salir: Se cerrara la aplicacion. Si hay algun archivo abierto y tiene cambios sin guardar preguntara si se quiere guardar.
+		
+Ayuda
+	
+Manual: Se abrira una nueva ventana donde se explica el funcionamiento de la aplicación.
+Acerca de: Se abrira una nueva ventana donde se mostrara informacion del equipo de desarrollo de la aplicación.</pre></html> 
