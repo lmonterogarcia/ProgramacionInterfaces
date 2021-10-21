@@ -15,6 +15,7 @@ public class FrmAcercaDe extends JDialog {
 	public FrmAcercaDe() {
 		
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setTitle("Acerca de");
 		setBounds(100, 100, 350, 200);
 		setResizable(false);
 		setModal(true);

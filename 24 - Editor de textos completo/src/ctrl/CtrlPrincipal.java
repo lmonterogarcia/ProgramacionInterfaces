@@ -22,9 +22,9 @@ public class CtrlPrincipal {
 	public static void nuevo() {
 		if (hayCambios()) {
 			guardar();
-		} 
-			sRuta = "";
-			view.FrmPrincipal.textArea.setText("");
+		}
+		sRuta = "";
+		view.FrmPrincipal.textArea.setText("");
 	}
 
 	public static void abrir() {
@@ -35,10 +35,13 @@ public class CtrlPrincipal {
 			fichero.close();
 		} catch (FileNotFoundException e) {
 			System.err.println("No se ha encontrado el fichero");
+			e.printStackTrace();
 		} catch (IOException e) {
 			System.err.println("Ha habido un problema al abrir el fichero");
+			e.printStackTrace();
 		} catch (Exception e) {
 			System.err.println("Ha ocurrido un error no tipificado\n" + e);
+			e.printStackTrace();
 		}
 	}
 
@@ -57,7 +60,6 @@ public class CtrlPrincipal {
 		sRuta = leerRutaParaGuardar();
 		guardarTexto(sTexto);
 	}
-
 
 	public static void salir() {
 
@@ -91,7 +93,7 @@ public class CtrlPrincipal {
 
 		return sRuta;
 	}
-	
+
 	private static String leerRutaParaGuardar() {
 		String sRuta = "";
 		JFileChooser guardarFch = new JFileChooser();
@@ -109,7 +111,6 @@ public class CtrlPrincipal {
 		return sRuta;
 	}
 
-
 	private static String leerTexto(RandomAccessFile fch) {
 		String sTexto = "";
 
@@ -120,16 +121,18 @@ public class CtrlPrincipal {
 			fch.close();
 		} catch (FileNotFoundException e) {
 			System.err.println("No se ha encontrado el fichero");
+			e.printStackTrace();
 		} catch (IOException e) {
 			System.err.println("Ha habido un problema al abrir el fichero");
-			System.out.println("ENTRA en leer texto");
+			e.printStackTrace();
 		} catch (Exception e) {
 			System.err.println("Ha ocurrido un error no tipificado\n" + e);
+			e.printStackTrace();
 		}
 
 		return sTexto;
 	}
-	
+
 	private static void guardarTexto(String sTexto) {
 		try {
 			fichero = new RandomAccessFile(sRuta, "rw");
@@ -137,22 +140,41 @@ public class CtrlPrincipal {
 			fichero.close();
 		} catch (FileNotFoundException e) {
 			System.err.println("No se ha encontrado el fichero");
+			e.printStackTrace();
 		} catch (IOException e) {
 			System.err.println("Ha habido un problema al abrir el fichero");
+			e.printStackTrace();
 		} catch (Exception e) {
 			System.err.println("Ha ocurrido un error no tipificado\n" + e);
+			e.printStackTrace();
 		}
 	}
 
 	private static boolean hayCambios() {
 		boolean booHayCambios;
-		
-		if (sRuta != "" && !view.FrmPrincipal.textArea.getText().equals(leerTexto(fichero))) {
-			booHayCambios = true;
+
+		if (sRuta.equals("")) {
+			if (!view.FrmPrincipal.textArea.getText().equals("")) {
+				booHayCambios = true;
+			} else {
+				booHayCambios = false;
+			}
 		} else {
-			booHayCambios = false;
+			if (!view.FrmPrincipal.textArea.getText().equals(leerTexto(fichero))) {
+				booHayCambios = true;
+			} else {
+				booHayCambios = false;
+			}
 		}
-		
+
+//		if (sRuta != "" && view.FrmPrincipal.textArea.getText() != "" ) {
+//			booHayCambios = true;
+//		} else if (!view.FrmPrincipal.textArea.getText().equals(leerTexto(fichero))){
+//			booHayCambios = true;
+//		} else {
+//			booHayCambios = false;
+//		}
+
 		return booHayCambios;
 	}
 }
