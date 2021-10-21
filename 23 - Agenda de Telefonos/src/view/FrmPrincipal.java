@@ -39,9 +39,9 @@ public class FrmPrincipal extends JFrame {
 				});
 		
 		lstAgenda = new JList(sModel);
-		JScrollPane scrollPane = new JScrollPane();
+		JScrollPane scrollPane = new JScrollPane(lstAgenda);
 		scrollPane.setBounds(34, 31, 152, 252);
-		scrollPane.setViewportView(lstAgenda);
+//		scrollPane.setViewportView(lstAgenda);
 
 
 		btnAbrirAgenda = new JButton("Abrir Agenda");

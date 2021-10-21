@@ -21,10 +21,17 @@ public class CtrlPrincipal {
 
 	public static void nuevo() {
 		if (hayCambios()) {
-			guardar();
+			int iOpcion = JOptionPane.showConfirmDialog(null, "Quieres guardar los cambios?", "Gestor de Guardado",
+					JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+			if (iOpcion == JOptionPane.YES_OPTION) {
+				guardar();
+				sRuta = "";
+				view.FrmPrincipal.textArea.setText("");
+			} else if (iOpcion == JOptionPane.NO_OPTION) {
+				sRuta = "";
+				view.FrmPrincipal.textArea.setText("");
+			}
 		}
-		sRuta = "";
-		view.FrmPrincipal.textArea.setText("");
 	}
 
 	public static void abrir() {
@@ -63,6 +70,19 @@ public class CtrlPrincipal {
 
 	public static void salir() {
 
+		if (hayCambios()) {
+			int iOpcion = JOptionPane.showConfirmDialog(null, "Quieres guardar los cambios?", "Gestor de Guardado",
+					JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+			if (iOpcion == JOptionPane.YES_OPTION) {
+				guardar();
+				exit();
+			} else if (iOpcion == JOptionPane.NO_OPTION) {
+				exit();
+			}
+		}
+	}
+	
+	private static void exit() {
 		int iOpcSeleccionada = JOptionPane.showConfirmDialog(null, "Desea salir?", "Asistente de salida",
 				JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
 		if (iOpcSeleccionada == JOptionPane.YES_OPTION) {
@@ -71,7 +91,6 @@ public class CtrlPrincipal {
 			view.FrmPrincipal.ventana.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 		}
-
 	}
 
 	private static String leerRuta() {
@@ -153,27 +172,12 @@ public class CtrlPrincipal {
 	private static boolean hayCambios() {
 		boolean booHayCambios;
 
-		if (sRuta.equals("")) {
-			if (!view.FrmPrincipal.textArea.getText().equals("")) {
-				booHayCambios = true;
-			} else {
-				booHayCambios = false;
-			}
+		if (sRuta.equals("") && !view.FrmPrincipal.textArea.getText().equals("")
+				|| !view.FrmPrincipal.textArea.getText().equals(leerTexto(fichero))) {
+			booHayCambios = true;
 		} else {
-			if (!view.FrmPrincipal.textArea.getText().equals(leerTexto(fichero))) {
-				booHayCambios = true;
-			} else {
-				booHayCambios = false;
-			}
+			booHayCambios = false;
 		}
-
-//		if (sRuta != "" && view.FrmPrincipal.textArea.getText() != "" ) {
-//			booHayCambios = true;
-//		} else if (!view.FrmPrincipal.textArea.getText().equals(leerTexto(fichero))){
-//			booHayCambios = true;
-//		} else {
-//			booHayCambios = false;
-//		}
 
 		return booHayCambios;
 	}
