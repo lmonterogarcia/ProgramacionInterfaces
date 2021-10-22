@@ -21,6 +21,9 @@ public class FrmPrincipal extends JFrame {
 	public static JMenu mnAyuda;
 	public static JMenuItem mntmManual;
 	public static JMenuItem mntmAcercaDe;
+	public static JMenu mnFormato;
+	public static JMenuItem mntmFuente;
+	public static JMenuItem mntmColores;
 	public static JTextArea textArea;
 
 	/**
@@ -63,6 +66,9 @@ public class FrmPrincipal extends JFrame {
 		mnAyuda = new JMenu("Ayuda");
 		mntmManual = new JMenuItem("Manual");
 		mntmAcercaDe = new JMenuItem("Acerca De");
+		mnFormato = new JMenu("Formato");
+		mntmFuente = new JMenuItem("Fuente");
+		mntmColores = new JMenuItem("Colores");
 		
 		// COMPONENTES
 		textArea = new JTextArea();
@@ -78,6 +84,8 @@ public class FrmPrincipal extends JFrame {
 		mntmSalir.addActionListener(e -> ctrl.CtrlPrincipal.salir());
 		mntmManual.addActionListener(e -> new FrmManual());
 		mntmAcercaDe.addActionListener(e -> new FrmAcercaDe());
+		mntmFuente.addActionListener(e -> new FrmFuentes());
+		mntmColores.addActionListener(e -> new FrmColores());
 		
 		// ANIADIR AL FRAME
 		setJMenuBar(menuBar);
@@ -90,7 +98,10 @@ public class FrmPrincipal extends JFrame {
 		mnArchivo.add(mntmSalir);
 		menuBar.add(mnAyuda);
 		mnAyuda.add(mntmManual);
-		mnAyuda.add(mntmAcercaDe);	
+		mnAyuda.add(mntmAcercaDe);
+		menuBar.add(mnFormato);
+		mnFormato.add(mntmFuente);
+		mnFormato.add(mntmColores);
 
 	}
 

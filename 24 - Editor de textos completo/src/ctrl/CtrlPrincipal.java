@@ -79,6 +79,8 @@ public class CtrlPrincipal {
 			} else if (iOpcion == JOptionPane.NO_OPTION) {
 				exit();
 			}
+		} else {
+			exit();
 		}
 	}
 	
