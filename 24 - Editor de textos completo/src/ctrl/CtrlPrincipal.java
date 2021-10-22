@@ -31,6 +31,9 @@ public class CtrlPrincipal {
 				sRuta = "";
 				view.FrmPrincipal.textArea.setText("");
 			}
+		} else {
+			sRuta = "";
+			view.FrmPrincipal.textArea.setText("");
 		}
 	}
 
@@ -172,14 +175,37 @@ public class CtrlPrincipal {
 	}
 
 	private static boolean hayCambios() {
-		boolean booHayCambios;
+		boolean booHayCambios =  false;
 
-		if (sRuta.equals("") && !view.FrmPrincipal.textArea.getText().equals("")
-				|| !view.FrmPrincipal.textArea.getText().equals(leerTexto(fichero))) {
-			booHayCambios = true;
+		if (sRuta.equals("")) {
+			if (!view.FrmPrincipal.textArea.getText().equals("")) {
+				booHayCambios = true;
+			} else {
+				booHayCambios = false;
+			}
+			
 		} else {
-			booHayCambios = false;
-		}
+			try {
+				fichero = new RandomAccessFile(sRuta, "r");
+				if (!view.FrmPrincipal.textArea.getText().equals(leerTexto(fichero))) {
+					booHayCambios = true;
+				} else {
+					booHayCambios = false;
+				}
+				fichero.close();
+			} catch (FileNotFoundException e) {
+				System.err.println("No se ha encontrado el fichero");
+				e.printStackTrace();
+			} catch (IOException e) {
+				System.err.println("Ha habido un problema al abrir el fichero");
+				e.printStackTrace();
+			} catch (Exception e) {
+				System.err.println("Ha ocurrido un error no tipificado\n" + e);
+				e.printStackTrace();
+			}
+			
+			
+		} 
 
 		return booHayCambios;
 	}

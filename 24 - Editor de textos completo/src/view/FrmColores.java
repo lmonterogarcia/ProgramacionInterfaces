@@ -14,6 +14,7 @@ public class FrmColores extends JDialog {
 	public FrmColores() {
 		setTitle("Editor de Colores");
 		setModal(true);
+		setResizable(false);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		

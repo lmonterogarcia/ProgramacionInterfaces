@@ -8,7 +8,7 @@ public class FrmPrincipal extends JFrame {
 
 	private JPanel contentPane;
 	public static JFrame ventana;
-	public static JList lstAgenda;
+	public static JList<String> lstAgenda;
 	public static JButton btnAbrirAgenda;
 	public static JButton btnGuardarAgenda;
 	public static JButton btnGuardar;
@@ -38,7 +38,7 @@ public class FrmPrincipal extends JFrame {
 					}
 				});
 		
-		lstAgenda = new JList(sModel);
+		lstAgenda = new JList<String>(sModel);
 		JScrollPane scrollPane = new JScrollPane(lstAgenda);
 		scrollPane.setBounds(34, 31, 152, 252);
 //		scrollPane.setViewportView(lstAgenda);

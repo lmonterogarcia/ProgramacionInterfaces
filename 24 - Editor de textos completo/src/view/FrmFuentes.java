@@ -16,12 +16,15 @@ public class FrmFuentes extends JDialog {
 	public static JButton  btnGuardarDef;
 	public static DefaultListModel<String> modFuente = new DefaultListModel<String>();
 	public static DefaultListModel<String> modTamanio = new DefaultListModel<String>();
+	public static JList<String> lstFuente;
+	public static JList<String> lstTamanio;
+	public static JLabel lblTextoPrueba;
 	
 	
-	// FALTA LA LISTA Y MAS COMPONENTES!!!!!!!!!
 	public FrmFuentes() {
 		setTitle("Editor de Fuentes");
 		setModal(true);
+		setResizable(false);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 320);
 		
@@ -43,7 +46,7 @@ public class FrmFuentes extends JDialog {
 		spFuente.setBounds(6, 30, 108, 154);
 		pnlFuente.add(spFuente);
 		
-		JList lstFuente = new JList(modFuente);
+		lstFuente = new JList<String>(modFuente);
 		spFuente.setViewportView(lstFuente);
 		
 		JPanel pnlTamanio = new JPanel();
@@ -55,9 +58,12 @@ public class FrmFuentes extends JDialog {
 		lblTamanio.setBounds(6, 5, 108, 16);
 		pnlTamanio.add(lblTamanio);
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(6, 30, 108, 154);
-		pnlTamanio.add(scrollPane_1);
+		JScrollPane spTamanio = new JScrollPane();
+		spTamanio.setBounds(6, 30, 108, 154);
+		pnlTamanio.add(spTamanio);
+		
+		lstTamanio = new JList<String>(modTamanio);
+		spTamanio.setViewportView(lstTamanio);
 		
 		JPanel pnlEstilos = new JPanel();
 		pnlEstilos.setBounds(310, 6, 120, 190);
@@ -70,6 +76,7 @@ public class FrmFuentes extends JDialog {
 		
 		rdbtnNormal = new JRadioButton("NORMAL");
 		rdbtnNormal.setBounds(0, 52, 114, 23);
+		rdbtnNormal.setSelected(true);;
 		pnlEstilos.add(rdbtnNormal);
 		
 		rdbtnNegrita = new JRadioButton("NEGRITA");
@@ -80,9 +87,14 @@ public class FrmFuentes extends JDialog {
 		rdbtnCursiva.setBounds(0, 145, 114, 23);
 		pnlEstilos.add(rdbtnCursiva);
 		
-		JLabel lblTextoPrueba = new JLabel("Texto de Prueba");
+		ButtonGroup bntGroup = new ButtonGroup();
+		bntGroup.add(rdbtnNormal);
+		bntGroup.add(rdbtnNegrita);
+		bntGroup.add(rdbtnCursiva);
+		
+		lblTextoPrueba = new JLabel("Texto de Prueba");
 		lblTextoPrueba.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTextoPrueba.setBounds(84, 208, 289, 42);
+		lblTextoPrueba.setBounds(84, 205, 289, 42);
 		contentPane.add(lblTextoPrueba);
 		
 		btnAceptar = new JButton("ACEPTAR");
@@ -93,7 +105,6 @@ public class FrmFuentes extends JDialog {
 		btnGuardarDef.setBounds(202, 253, 171, 29);
 		contentPane.add(btnGuardarDef);
 		
-		// EVENTOS
 		
 		
 		
