@@ -25,6 +25,15 @@ public class FrmPrincipal extends JFrame {
 	public static JMenuItem mntmFuente;
 	public static JMenuItem mntmColores;
 	public static JTextArea textArea;
+	private final Font FNT_INICIAL = ctrl.CtrlPrincipal.confDefecto.getFntPredemeditada() != null
+			? ctrl.CtrlPrincipal.confDefecto.getFntPredemeditada()
+			: new Font("Arial", Font.PLAIN, 13);
+	private final Color CLR_BACKGROUND = ctrl.CtrlPrincipal.confDefecto.getClrFondo() != null
+			? ctrl.CtrlPrincipal.confDefecto.getClrFondo()
+			: Color.WHITE;
+	private final Color CLR_FOREGROUND = ctrl.CtrlPrincipal.confDefecto.getClrFuente() != null
+			? ctrl.CtrlPrincipal.confDefecto.getClrFuente()
+			: Color.BLACK;
 
 	/**
 	 * Create the frame.
@@ -33,15 +42,14 @@ public class FrmPrincipal extends JFrame {
 		ventana = this;
 		setTitle("Editor de Texto");
 		setIconImage(Toolkit.getDefaultToolkit().createImage("faviconAhoraViajar.png"));
-		
-		addWindowListener(
-				new WindowAdapter() {
-					public void windowClosing(WindowEvent we) {
-						ctrl.CtrlPrincipal.salir();
 
-					}
-				});
-		
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent we) {
+				ctrl.CtrlPrincipal.salir();
+
+			}
+		});
+
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -69,10 +77,13 @@ public class FrmPrincipal extends JFrame {
 		mnFormato = new JMenu("Formato");
 		mntmFuente = new JMenuItem("Fuente");
 		mntmColores = new JMenuItem("Colores");
-		
+
 		// COMPONENTES
 		textArea = new JTextArea();
 		textArea.setLineWrap(true);
+		textArea.setFont(FNT_INICIAL);
+		textArea.setBackground(CLR_BACKGROUND);
+		textArea.setForeground(CLR_FOREGROUND);
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 
@@ -86,7 +97,7 @@ public class FrmPrincipal extends JFrame {
 		mntmAcercaDe.addActionListener(e -> new FrmAcercaDe());
 		mntmFuente.addActionListener(e -> ctrl.CtrlFuente.iniciarFuente());
 		mntmColores.addActionListener(e -> new FrmColores());
-		
+
 		// ANIADIR AL FRAME
 		setJMenuBar(menuBar);
 		menuBar.add(mnArchivo);

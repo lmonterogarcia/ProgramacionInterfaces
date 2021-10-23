@@ -1,21 +1,22 @@
 package ctrl;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.*;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import model.ConfiguracionDefecto;
+
 public class CtrlPrincipal {
 
-	private static RandomAccessFile fichero;
 	private static String sRuta = "";
+	private final static String sRutaConfiguracion = "configuracion.db";
+	public static ConfiguracionDefecto confDefecto = new ConfiguracionDefecto();
 
 	public static void iniciar() {
+		leerConfiguracion();
 		new view.FrmPrincipal();
 	}
 
@@ -40,7 +41,7 @@ public class CtrlPrincipal {
 	public static void abrir() {
 		sRuta = leerRuta();
 		try {
-			fichero = new RandomAccessFile(sRuta, "rw");
+			RandomAccessFile fichero = new RandomAccessFile(sRuta, "rw");
 			view.FrmPrincipal.textArea.setText(leerTexto(fichero));
 			fichero.close();
 		} catch (FileNotFoundException e) {
@@ -159,7 +160,7 @@ public class CtrlPrincipal {
 
 	private static void guardarTexto(String sTexto) {
 		try {
-			fichero = new RandomAccessFile(sRuta, "rw");
+			RandomAccessFile fichero = new RandomAccessFile(sRuta, "rw");
 			fichero.writeBytes(sTexto);
 			fichero.close();
 		} catch (FileNotFoundException e) {
@@ -186,7 +187,7 @@ public class CtrlPrincipal {
 			
 		} else {
 			try {
-				fichero = new RandomAccessFile(sRuta, "r");
+				RandomAccessFile fichero = new RandomAccessFile(sRuta, "r");
 				if (!view.FrmPrincipal.textArea.getText().equals(leerTexto(fichero))) {
 					booHayCambios = true;
 				} else {
@@ -208,5 +209,57 @@ public class CtrlPrincipal {
 		} 
 
 		return booHayCambios;
+	}
+	
+	private static void leerConfiguracion() {
+		
+		try {
+			ObjectInputStream br = new ObjectInputStream(new FileInputStream(sRutaConfiguracion));
+			
+			Object obj = br.readObject();
+			
+			if (obj instanceof ConfiguracionDefecto) {
+				confDefecto = (ConfiguracionDefecto) obj;
+			} else {
+				confDefecto = new ConfiguracionDefecto();
+			}
+			
+			br.close();
+		} catch (FileNotFoundException e) {
+			System.err.println("El fichero no existe");
+			e.printStackTrace();
+		} catch (IOException e){
+			System.err.println("Se ha producido un error al acceder al fichero");
+			e.printStackTrace();
+		} catch (Exception e) {
+			System.err.println("Ha ocurrido un error no clasificado");
+			e.printStackTrace();
+		}
+	}
+	
+	public static void guardarConfiguracion() {
+		
+		confDefecto.setFntPredemeditada(ctrl.CtrlFuente.nuevaFuente);
+		confDefecto.setClrFuente(null);
+		confDefecto.setClrFondo(null);
+		
+		try {
+			ObjectOutputStream bw = new ObjectOutputStream(new FileOutputStream(sRutaConfiguracion));
+			
+			bw.writeObject(confDefecto);
+			
+			bw.close();
+		} catch (FileNotFoundException e) {
+			System.err.println("El fichero no existe");
+			e.printStackTrace();
+		} catch (IOException e){
+			System.err.println("Se ha producido un error al acceder al fichero");
+			e.printStackTrace();
+		} catch (Exception e) {
+			System.err.println("Ha ocurrido un error no clasificado");
+			e.printStackTrace();
+		}
+		
+		
 	}
 }

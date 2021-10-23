@@ -2,11 +2,11 @@ package ctrl;
 
 import java.awt.*;
 
-import javax.swing.text.AttributeSet.FontAttribute;
+import model.ConfiguracionDefecto;
 
 public class CtrlFuente {
 
-	private static Font nuevaFuente;
+	public static Font nuevaFuente;
 	
 	public static void iniciarFuente() {
 		
@@ -19,7 +19,7 @@ public class CtrlFuente {
 	}
 
 	public static void guardarDef() {
-		
+		ctrl.CtrlPrincipal.guardarConfiguracion();
 
 	}
 
