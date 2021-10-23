@@ -240,8 +240,8 @@ public class CtrlPrincipal {
 	public static void guardarConfiguracion() {
 		
 		confDefecto.setFntPredemeditada(ctrl.CtrlFuente.nuevaFuente);
-		confDefecto.setClrFuente(null);
-		confDefecto.setClrFondo(null);
+		confDefecto.setClrFuente(view.FrmColores.lblTextoPrueba.getForeground());
+		confDefecto.setClrFondo(view.FrmColores.lblTextoPrueba.getBackground());
 		
 		try {
 			ObjectOutputStream bw = new ObjectOutputStream(new FileOutputStream(sRutaConfiguracion));
