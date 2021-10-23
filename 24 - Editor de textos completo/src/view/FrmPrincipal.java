@@ -84,7 +84,7 @@ public class FrmPrincipal extends JFrame {
 		mntmSalir.addActionListener(e -> ctrl.CtrlPrincipal.salir());
 		mntmManual.addActionListener(e -> new FrmManual());
 		mntmAcercaDe.addActionListener(e -> new FrmAcercaDe());
-		mntmFuente.addActionListener(e -> new FrmFuentes());
+		mntmFuente.addActionListener(e -> ctrl.CtrlFuente.iniciarFuente());
 		mntmColores.addActionListener(e -> new FrmColores());
 		
 		// ANIADIR AL FRAME
