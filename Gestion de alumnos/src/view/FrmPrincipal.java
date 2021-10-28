@@ -10,7 +10,7 @@ public class FrmPrincipal extends JFrame {
 
 	//Colores
 	public static final Color CLR_BG_PANEL = Color.blue;
-	public static final Color CLR_FG_BTN = Color.white;
+	public static final Color CLR_FG_BTN = Color.orange;
 	
 	private JPanel contentPane;
 	public static JFrame ventana;
@@ -218,18 +218,18 @@ public class FrmPrincipal extends JFrame {
 		
 		btnEditar = new JButton("EDITAR");
 		btnEditar.setBounds(180, 10, 77, 29);
-		btnEditar.setBackground(CLR_FG_BTN);
+		btnEditar.setForeground(CLR_FG_BTN);
 		pnlInferior.add(btnEditar);
 		
 		btnGuardar = new JButton("GUARDAR");
 		btnGuardar.setBounds(251, 10, 94, 29);
-		btnGuardar.setBackground(CLR_FG_BTN);
+		btnGuardar.setForeground(CLR_FG_BTN);
 		btnGuardar.setVisible(false);
 		pnlInferior.add(btnGuardar);
 		
 		btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setBounds(340, 10, 94, 29);
-		btnCancelar.setBackground(CLR_FG_BTN);
+		btnCancelar.setForeground(CLR_FG_BTN);
 		btnCancelar.setVisible(false);
 		pnlInferior.add(btnCancelar);
 		
