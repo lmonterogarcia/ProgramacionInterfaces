@@ -1,8 +1,6 @@
 package ctrl;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;

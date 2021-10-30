@@ -8,9 +8,13 @@ import javax.swing.border.*;
 
 public class FrmPrincipal extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	public static JFrame ventana;
-	public static int iNumLabel = 17;
+	public static int iNumLabel = 15;
 	public static JLabel[] aElementosTablero;
 	private static JPanel pnlPrincipal;
 	public static JLabel lblCalabazaNum;
@@ -30,7 +34,6 @@ public class FrmPrincipal extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent we) {
 				ctrl.CtrlPrincipal.salir();
-
 			}
 		});
 
@@ -56,6 +59,7 @@ public class FrmPrincipal extends JFrame {
 		pnlPrincipal.setLayout(null);
 
 		JPanel pnlPuntuacion = new JPanel();
+		@SuppressWarnings("unused")
 		FlowLayout flowLayout = (FlowLayout) pnlPuntuacion.getLayout();
 		contentPane.add(pnlPuntuacion, BorderLayout.SOUTH);
 

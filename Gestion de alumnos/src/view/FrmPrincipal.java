@@ -160,7 +160,7 @@ public class FrmPrincipal extends JFrame {
 		ButtonGroup btngrTurno = new ButtonGroup();
 		btngrTurno.add(rdbtnManiana);
 		btngrTurno.add(rdbtnTarde);
-		btngrTurno.add(rdbtnManiana);
+		btngrTurno.add(rdbtnOnLine);
 		
 		JLabel lblComentarios = new JLabel("Comentarios:");
 		lblComentarios.setBounds(11, 239, 93, 16);

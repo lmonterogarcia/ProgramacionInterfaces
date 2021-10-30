@@ -1,12 +1,15 @@
 package ctrl;
 
 import java.awt.*;
-import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.border.*;
 
 public class ToastMessage extends JDialog{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	int miliseconds;
     public ToastMessage(String toastString, int time) {
         this.miliseconds = time;
@@ -29,7 +32,7 @@ public class ToastMessage extends JDialog{
         setAlwaysOnTop(true);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         int y = dim.height/2-getSize().height/2;
-        int half = y/2;
+//        int half = y/2;
         setLocation(dim.width/2-getSize().width/2, y);
         panel.add(toastLabel);
         setVisible(false);
