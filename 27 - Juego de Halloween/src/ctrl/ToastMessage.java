@@ -48,5 +48,4 @@ public class ToastMessage extends JDialog{
             }
         }.start();
     }
-
 }

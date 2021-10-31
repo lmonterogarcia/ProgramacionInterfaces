@@ -12,12 +12,31 @@ public class CtrlPrincipal {
 	private static byte[][] aTablero = new byte[8][8];
 //	private static ArrayList<Dimension> alElementosCapturados = new ArrayList<Dimension>();
 	private static byte bEmpezar = 0;
+	private static boolean booMensajeAtaud = true;
 
 	public static void inicio() {
 
 		new view.FrmPrincipal();
 		ToastMessage toastMessage = new ToastMessage("Dale a ESPACIO para ver los elementos",1800);
         toastMessage.setVisible(true);
+
+	}
+	
+	public static void empezar() {
+		if (bEmpezar == 0) {
+			
+			ToastMessage toastMessage = new ToastMessage("Vuelve a darle a ESPACIO para empezar, pero antes memoriza bien el tablero",2800);
+            toastMessage.setVisible(true);
+			for (int i = 0; i < view.FrmPrincipal.aElementosTablero.length; i++) {
+				view.FrmPrincipal.aElementosTablero[i].setVisible(true);
+			}
+			bEmpezar++;
+		} else if (bEmpezar == 1) {
+			for (int i = 1; i < view.FrmPrincipal.aElementosTablero.length; i++) {
+				view.FrmPrincipal.aElementosTablero[i].setVisible(false);
+			}
+			bEmpezar++;
+		}
 
 	}
 
@@ -31,9 +50,7 @@ public class CtrlPrincipal {
 
 		} else if (iOpcSeleccionada == JOptionPane.NO_OPTION) {
 			view.FrmPrincipal.ventana.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
 		}
-
 	}
 	
 	public static void reiniciarJuego() {
@@ -46,6 +63,7 @@ public class CtrlPrincipal {
 			view.FrmPrincipal.aElementosTablero[i].setVisible(false);
 		}
 		view.FrmPrincipal.aElementosTablero[0].setVisible(false);
+		booMensajeAtaud = true;
 		
 		colocarElementos(view.FrmPrincipal.aElementosTablero);
 		view.FrmPrincipal.bCalabazas = 0;
@@ -84,9 +102,9 @@ public class CtrlPrincipal {
 
 		do {
 			iX = (int) Math.floor(Math.random() * 8);
-			;
+			
 			iY = (int) Math.floor(Math.random() * 8);
-			;
+			
 			if (aTablero[iY][iX] == 0) {
 				aTablero[iY][iX] = iTipoElemento;
 				jLabel.setLocation(iX * 50, iY * 50);
@@ -145,8 +163,12 @@ public class CtrlPrincipal {
 		}
 		if ((view.FrmPrincipal.bCalabazas + view.FrmPrincipal.bMurcielagos) == 6) {
 			view.FrmPrincipal.aElementosTablero[1].setVisible(true);
-			ToastMessage toastMessage = new ToastMessage("Ve al ATAUD, ten cuidado de no morir",2000);
-	        toastMessage.setVisible(true);
+			if (booMensajeAtaud) {
+				ToastMessage toastMessage = new ToastMessage("Ve al ATAUD, ten cuidado de no morir",2000);
+		        toastMessage.setVisible(true);
+		        booMensajeAtaud = false;
+			}
+			
 		}
 	}
 
@@ -281,23 +303,5 @@ public class CtrlPrincipal {
 //
 //		return booYaCapturado;
 //	}
-
-	public static void empezar() {
-		if (bEmpezar == 0) {
-			
-			ToastMessage toastMessage = new ToastMessage("Vuelve a darle a ESPACIO para empezar, pero antes memoriza bien el tablero",2800);
-            toastMessage.setVisible(true);
-			for (int i = 0; i < view.FrmPrincipal.aElementosTablero.length; i++) {
-				view.FrmPrincipal.aElementosTablero[i].setVisible(true);
-			}
-			bEmpezar++;
-		} else if (bEmpezar == 1) {
-			for (int i = 1; i < view.FrmPrincipal.aElementosTablero.length; i++) {
-				view.FrmPrincipal.aElementosTablero[i].setVisible(false);
-			}
-			bEmpezar++;
-		}
-
-	}
 
 }

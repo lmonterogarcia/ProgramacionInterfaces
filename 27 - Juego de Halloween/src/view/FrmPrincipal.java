@@ -59,8 +59,6 @@ public class FrmPrincipal extends JFrame {
 		pnlPrincipal.setLayout(null);
 
 		JPanel pnlPuntuacion = new JPanel();
-		@SuppressWarnings("unused")
-		FlowLayout flowLayout = (FlowLayout) pnlPuntuacion.getLayout();
 		contentPane.add(pnlPuntuacion, BorderLayout.SOUTH);
 
 		JLabel lblCalabaza = new JLabel(new ImageIcon("archivos/calabazaPuntos.png"));
@@ -94,6 +92,12 @@ public class FrmPrincipal extends JFrame {
 
 		// EVENTOS
 
+		eventos();
+
+	}
+
+	private void eventos() {
+		
 		ventana.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
@@ -109,7 +113,6 @@ public class FrmPrincipal extends JFrame {
 				}
 			}
 		});
-
 	}
 
 	 public static void colocarElementos() {
