@@ -9,7 +9,6 @@ public class ToastMessage extends JDialog{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	int miliseconds;
     public ToastMessage(String toastString, int time) {
         this.miliseconds = time;

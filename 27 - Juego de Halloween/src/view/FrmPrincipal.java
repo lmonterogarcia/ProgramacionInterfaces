@@ -14,7 +14,6 @@ public class FrmPrincipal extends JFrame implements IConfiguracion{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	public static JFrame ventana;
 	public static JLabel[] aElementosTablero;
