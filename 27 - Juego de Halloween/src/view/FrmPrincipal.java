@@ -6,7 +6,10 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class FrmPrincipal extends JFrame {
+import ctrl.CtrlPrincipal;
+import ctrl.IConfiguracion;
+
+public class FrmPrincipal extends JFrame implements IConfiguracion{
 
 	/**
 	 * 
@@ -14,7 +17,6 @@ public class FrmPrincipal extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	public static JFrame ventana;
-	public static int iNumLabel = 15;
 	public static JLabel[] aElementosTablero;
 	private static JPanel pnlPrincipal;
 	public static JLabel lblCalabazaNum;
@@ -38,9 +40,7 @@ public class FrmPrincipal extends JFrame {
 		});
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		int iAncho = 410, iAlto = 490;
-
-		setBounds(((screenSize.width - iAncho) / 2), ((screenSize.height - iAlto) / 2), iAncho, iAlto);
+		setBounds(((screenSize.width - iANCHOCONTENTPANE[CtrlPrincipal.bDIFICULTAD]) / 2), ((screenSize.height - iALTOCONTENTPANE[CtrlPrincipal.bDIFICULTAD]) / 2), iANCHOCONTENTPANE[CtrlPrincipal.bDIFICULTAD], iALTOCONTENTPANE[CtrlPrincipal.bDIFICULTAD]);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -54,7 +54,7 @@ public class FrmPrincipal extends JFrame {
 	private void agregarComponentes() {
 
 		pnlPrincipal = new JPanel();
-		pnlPrincipal.setBounds(0, 0, 400, 400);
+		pnlPrincipal.setBounds(0, 0, iANCHOPNLPRINCIPAL[CtrlPrincipal.bDIFICULTAD], iALTOPNLPRINCIPAL[CtrlPrincipal.bDIFICULTAD]);
 		contentPane.add(pnlPrincipal, BorderLayout.CENTER);
 		pnlPrincipal.setLayout(null);
 
@@ -104,7 +104,7 @@ public class FrmPrincipal extends JFrame {
 					ctrl.CtrlPrincipal.empezar();
 				}
 				if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-					ctrl.CtrlPrincipal.reiniciarJuego();
+					ctrl.CtrlPrincipal.reiniciarJuegoPorUsuario();
 				}
 
 				if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN
@@ -117,7 +117,7 @@ public class FrmPrincipal extends JFrame {
 
 	 public static void colocarElementos() {
 
-		aElementosTablero = new JLabel[iNumLabel];
+		aElementosTablero = new JLabel[iNUMLABEL[CtrlPrincipal.bDIFICULTAD]];
 
 		for (int i = 0; i < aElementosTablero.length; i++) {
 

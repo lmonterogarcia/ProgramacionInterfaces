@@ -6,27 +6,29 @@ import java.awt.event.*;
 import javax.swing.*;
 //import javax.swing.plaf.DimensionUIResource;
 
-public class CtrlPrincipal {
+public class CtrlPrincipal implements IConfiguracion {
 
 	private static ImageIcon[] aIconos;
-	private static byte[][] aTablero = new byte[8][8];
+	private static byte[][] aTablero = new byte[bLADOTABLERO[CtrlPrincipal.bDIFICULTAD]][bLADOTABLERO[CtrlPrincipal.bDIFICULTAD]];
 //	private static ArrayList<Dimension> alElementosCapturados = new ArrayList<Dimension>();
 	private static byte bEmpezar = 0;
 	private static boolean booMensajeAtaud = true;
+	public static byte bDIFICULTAD = 0;
 
 	public static void inicio() {
 
 		new view.FrmPrincipal();
-		ToastMessage toastMessage = new ToastMessage("Dale a ESPACIO para ver los elementos",1800);
-        toastMessage.setVisible(true);
+		ToastMessage toastMessage = new ToastMessage("Dale a ESPACIO para ver los elementos", 1800);
+		toastMessage.setVisible(true);
 
 	}
-	
+
 	public static void empezar() {
 		if (bEmpezar == 0) {
-			
-			ToastMessage toastMessage = new ToastMessage("Vuelve a darle a ESPACIO para empezar, pero antes memoriza bien el tablero",2800);
-            toastMessage.setVisible(true);
+
+			ToastMessage toastMessage = new ToastMessage(
+					"Vuelve a darle a ESPACIO para empezar, pero antes memoriza bien el tablero", 2800);
+			toastMessage.setVisible(true);
 			for (int i = 0; i < view.FrmPrincipal.aElementosTablero.length; i++) {
 				view.FrmPrincipal.aElementosTablero[i].setVisible(true);
 			}
@@ -37,6 +39,40 @@ public class CtrlPrincipal {
 			}
 			bEmpezar++;
 		}
+
+	}
+
+	public static void reiniciarJuegoPorUsuario() {
+
+		int iOpcion = JOptionPane.showConfirmDialog(null, "Realmente quiere reiniciar el juego?",
+				"Ya te has rendido...", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		if (iOpcion == JOptionPane.YES_OPTION) {
+			reiniciarJuego();
+		}
+
+	}
+
+	public static void reiniciarJuego() {
+
+		Arrays.fill(aTablero, null);
+		aTablero = new byte[bLADOTABLERO[CtrlPrincipal.bDIFICULTAD]][bLADOTABLERO[CtrlPrincipal.bDIFICULTAD]];
+		bEmpezar = 0;
+
+		for (int i = 1; i < view.FrmPrincipal.aElementosTablero.length; i++) {
+			view.FrmPrincipal.aElementosTablero[i].setVisible(false);
+		}
+		view.FrmPrincipal.aElementosTablero[0].setVisible(false);
+		booMensajeAtaud = true;
+
+		colocarElementos(view.FrmPrincipal.aElementosTablero);
+		view.FrmPrincipal.bCalabazas = 0;
+		view.FrmPrincipal.bMurcielagos = 0;
+		view.FrmPrincipal.bCrucifivo = 0;
+		view.FrmPrincipal.bAjo = 0;
+		actualizarPuntuacion();
+		ToastMessage toastMessage = new ToastMessage("El juego se ha reiniciado, Pulsa ESPACIO para ver lo elementos",
+				2000);
+		toastMessage.setVisible(true);
 
 	}
 
@@ -52,45 +88,23 @@ public class CtrlPrincipal {
 			view.FrmPrincipal.ventana.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		}
 	}
-	
-	public static void reiniciarJuego() {
-		
-		Arrays.fill(aTablero, null);
-		aTablero = new byte[8][8];
-		bEmpezar = 0;
-		
-		for (int i = 1; i < view.FrmPrincipal.aElementosTablero.length; i++) {
-			view.FrmPrincipal.aElementosTablero[i].setVisible(false);
-		}
-		view.FrmPrincipal.aElementosTablero[0].setVisible(false);
-		booMensajeAtaud = true;
-		
-		colocarElementos(view.FrmPrincipal.aElementosTablero);
-		view.FrmPrincipal.bCalabazas = 0;
-		view.FrmPrincipal.bMurcielagos = 0;
-		view.FrmPrincipal.bCrucifivo = 0;
-		view.FrmPrincipal.bAjo = 0;
-		actualizarPuntuacion();
-		ToastMessage toastMessage = new ToastMessage("El juego se ha reiniciado, Pulsa ESPACIO para ver lo elementos",2000);
-        toastMessage.setVisible(true);
-	}
 
 	public static void colocarElementos(JLabel[] aElementosTablero) {
 		crearIconos();
-		posicionElemento(aElementosTablero[0], aIconos[0], (byte) 1);
-		posicionElemento(aElementosTablero[1], aIconos[1], (byte) 2);
-		posicionElemento(aElementosTablero[2], aIconos[2], (byte) 3);
+		posicionElemento(aElementosTablero[0], aIconos[bDRACULA], (byte) (bDRACULA + 1));
+		posicionElemento(aElementosTablero[1], aIconos[bATAUD], (byte) (bATAUD + 1));
+		posicionElemento(aElementosTablero[2], aIconos[bESOL], (byte) (bESOL + 1));
 		for (int i = 3; i < 6; i++) {
-			posicionElemento(aElementosTablero[i], aIconos[3], (byte) 4);
+			posicionElemento(aElementosTablero[i], aIconos[bAJO], (byte) (bAJO + 1));
 		}
 		for (int i = 6; i < 9; i++) {
-			posicionElemento(aElementosTablero[i], aIconos[4], (byte) 5);
+			posicionElemento(aElementosTablero[i], aIconos[bCRUCIFIJO], (byte) (bCRUCIFIJO + 1));
 		}
 		for (int i = 9; i < 12; i++) {
-			posicionElemento(aElementosTablero[i], aIconos[5], (byte) 6);
+			posicionElemento(aElementosTablero[i], aIconos[bCALABAZA], (byte) (bCALABAZA + 1));
 		}
 		for (int i = 12; i < 15; i++) {
-			posicionElemento(aElementosTablero[i], aIconos[6], (byte) 7);
+			posicionElemento(aElementosTablero[i], aIconos[bMURCIELAGO], (byte) (bMURCIELAGO + 1));
 		}
 	}
 
@@ -101,10 +115,10 @@ public class CtrlPrincipal {
 		jLabel.setIcon(imageIcon);
 
 		do {
-			iX = (int) Math.floor(Math.random() * 8);
-			
-			iY = (int) Math.floor(Math.random() * 8);
-			
+			iX = (int) Math.floor(Math.random() * bLADOTABLERO[CtrlPrincipal.bDIFICULTAD]);
+
+			iY = (int) Math.floor(Math.random() * bLADOTABLERO[CtrlPrincipal.bDIFICULTAD]);
+
 			if (aTablero[iY][iX] == 0) {
 				aTablero[iY][iX] = iTipoElemento;
 				jLabel.setLocation(iX * 50, iY * 50);
@@ -114,7 +128,7 @@ public class CtrlPrincipal {
 	}
 
 	private static void crearIconos() {
-		aIconos = new ImageIcon[view.FrmPrincipal.iNumLabel];
+		aIconos = new ImageIcon[7];
 		ImageIcon iiDracula = new ImageIcon("archivos/dracula.png");
 		aIconos[0] = iiDracula;
 		ImageIcon iiAtaud = new ImageIcon("archivos/ataud.png");
@@ -134,24 +148,24 @@ public class CtrlPrincipal {
 
 	private static void controlPuntos(int iElemento) {
 		switch (iElemento) {
-		case 2:
+		case bATAUD + 1:
 			if (view.FrmPrincipal.aElementosTablero[1].isVisible()) {
 				verResultados();
 			}
 			break;
-		case 3:
+		case bESOL + 1:
 			muerteSol();
 			break;
-		case 4:
+		case bAJO + 1:
 			view.FrmPrincipal.bAjo++;
 			break;
-		case 5:
+		case bCRUCIFIJO + 1:
 			view.FrmPrincipal.bCrucifivo++;
 			break;
-		case 6:
+		case bCALABAZA + 1:
 			view.FrmPrincipal.bCalabazas++;
 			break;
-		case 7:
+		case bMURCIELAGO + 1:
 			view.FrmPrincipal.bMurcielagos++;
 			break;
 		}
@@ -164,34 +178,43 @@ public class CtrlPrincipal {
 		if ((view.FrmPrincipal.bCalabazas + view.FrmPrincipal.bMurcielagos) == 6) {
 			view.FrmPrincipal.aElementosTablero[1].setVisible(true);
 			if (booMensajeAtaud) {
-				ToastMessage toastMessage = new ToastMessage("Ve al ATAUD, ten cuidado de no morir",2000);
-		        toastMessage.setVisible(true);
-		        booMensajeAtaud = false;
+				ToastMessage toastMessage = new ToastMessage("Ve al ATAUD, ten cuidado de no morir", 2000);
+				toastMessage.setVisible(true);
+				booMensajeAtaud = false;
 			}
-			
+
 		}
+	}
+
+	private static void actualizarPuntuacion() {
+		view.FrmPrincipal.lblCalabazaNum.setText(view.FrmPrincipal.bCalabazas + "/3   ");
+		view.FrmPrincipal.lblMurcielagoNum.setText(view.FrmPrincipal.bMurcielagos + "/3   ");
+		view.FrmPrincipal.lblPuntosTotales
+				.setText("" + ((view.FrmPrincipal.bCalabazas * 50) + (view.FrmPrincipal.bMurcielagos * 35)
+						+ (view.FrmPrincipal.bCrucifivo * -55) + (view.FrmPrincipal.bAjo * -35)));
+
 	}
 
 	private static void verResultados() {
 
 		String sPuntuacion = "" + ((view.FrmPrincipal.bCalabazas * 50) + (view.FrmPrincipal.bMurcielagos * 35)
 				+ (view.FrmPrincipal.bCrucifivo * -55) + (view.FrmPrincipal.bAjo * -35));
-		JOptionPane.showMessageDialog(null, "HAS GANADO. Tu puntuacion ha sido de " + sPuntuacion + ". Se va a reiniciar el juego",
-				"HAS GANADO", JOptionPane.OK_OPTION, aIconos[6]);
+		JOptionPane.showMessageDialog(null,
+				"HAS GANADO. Tu puntuacion ha sido de " + sPuntuacion + ". Se va a reiniciar el juego", "HAS GANADO",
+				JOptionPane.OK_OPTION, aIconos[6]);
 
-			reiniciarJuego();
+		reiniciarJuego();
 	}
 
 	private static void muertePuntos() {
 		String sPuntuacion = "" + ((view.FrmPrincipal.bCalabazas * 50) + (view.FrmPrincipal.bMurcielagos * 35)
 				+ (view.FrmPrincipal.bCrucifivo * -55) + (view.FrmPrincipal.bAjo * -35));
-		JOptionPane
-				.showMessageDialog(
-						null, "HAS PERDIDO. Parece que has pasado por muchos ajos y crucifios. Tu puntuacion ha sido de "
-								+ sPuntuacion + ". Se va a reiniciar el juego",
-						"HAS PERDIDO", JOptionPane.OK_OPTION, aIconos[4]);
+		JOptionPane.showMessageDialog(null,
+				"HAS PERDIDO. Parece que has pasado por muchos ajos y crucifios. Tu puntuacion ha sido de "
+						+ sPuntuacion + ". Se va a reiniciar el juego",
+				"HAS PERDIDO", JOptionPane.OK_OPTION, aIconos[4]);
 
-			reiniciarJuego();
+		reiniciarJuego();
 
 	}
 
@@ -201,15 +224,6 @@ public class CtrlPrincipal {
 				"Dracula se ha volatilizado, HAS PERDIDO", JOptionPane.OK_OPTION, aIconos[2]);
 
 		reiniciarJuego();
-
-	}
-
-	private static void actualizarPuntuacion() {
-		view.FrmPrincipal.lblCalabazaNum.setText(view.FrmPrincipal.bCalabazas + "/3   ");
-		view.FrmPrincipal.lblMurcielagoNum.setText(view.FrmPrincipal.bMurcielagos + "/3   ");
-		view.FrmPrincipal.lblPuntosTotales
-				.setText("" + ((view.FrmPrincipal.bCalabazas * 50) + (view.FrmPrincipal.bMurcielagos * 35)
-						+ (view.FrmPrincipal.bCrucifivo * -55) + (view.FrmPrincipal.bAjo * -35)));
 
 	}
 
@@ -261,7 +275,7 @@ public class CtrlPrincipal {
 					booEncima = true;
 					capturar(iContadorElementos);
 				}
-				
+
 			}
 			iContadorElementos--;
 		} while (!booEncima && iContadorElementos > 0);
@@ -277,6 +291,8 @@ public class CtrlPrincipal {
 			controlPuntos(aTablero[iFila][iColumna]);
 		}
 	}
+
+	
 
 	// Se ha encontrado un metodo mas facil de entender!!!!!!!
 	//
