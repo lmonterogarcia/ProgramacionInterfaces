@@ -7,6 +7,7 @@ import model.Alumno;
 public class Inicio {
 
 	public ArrayList<Alumno> listadoAlumnos = new ArrayList<Alumno>();
+	
 	public static void main(String[] args) {
 
 		ctrl.CtrlPrincipal.inicio();
