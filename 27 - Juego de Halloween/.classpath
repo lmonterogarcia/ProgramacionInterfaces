@@ -6,5 +6,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry including="archvivos/ajo.png|archvivos/ataud.png|archvivos/calabaza.png|archvivos/calabazaPuntos.png|archvivos/crucifijo.png|archvivos/dracula.png|archvivos/faviconAhoraViajar.png|archvivos/murcielago.png|archvivos/murcielagoPuntos.png|archvivos/sol.png|archvivos/tablero.jpg" kind="src" path="archivos"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

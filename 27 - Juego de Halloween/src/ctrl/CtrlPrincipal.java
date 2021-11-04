@@ -286,8 +286,8 @@ public class CtrlPrincipal implements IConfiguracion {
 		if (!view.FrmPrincipal.aElementosTablero[iContadorElementos].isVisible()) {
 //		if (!yaCapturado(iContadorElementos)) {
 			view.FrmPrincipal.aElementosTablero[iContadorElementos].setVisible(true);
-			int iFila = view.FrmPrincipal.aElementosTablero[0].getY() / 50,
-					iColumna = view.FrmPrincipal.aElementosTablero[0].getX() / 50;
+			int iFila = view.FrmPrincipal.aElementosTablero[0].getY() / bTamanioImagen,
+					iColumna = view.FrmPrincipal.aElementosTablero[0].getX() / bTamanioImagen;
 			controlPuntos(aTablero[iFila][iColumna]);
 		}
 	}

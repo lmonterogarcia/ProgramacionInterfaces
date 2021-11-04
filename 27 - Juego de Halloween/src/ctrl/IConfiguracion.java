@@ -9,6 +9,7 @@ public interface IConfiguracion {
 	public static final int[] iALTOPNLPRINCIPAL = { 400, 600, 800 };
 	public static final byte[] bLADOTABLERO = { 8, 12, 16 };
 	// Elementos del Juego
+	public static final byte bTamanioImagen = 50;
 	public static final byte bDRACULA = 0;
 	public static final byte bATAUD = 1;
 	public static final byte bESOL = 2;
