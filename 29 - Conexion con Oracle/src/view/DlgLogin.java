@@ -1,8 +1,6 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
 
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -16,13 +14,17 @@ import javax.swing.SwingConstants;
 
 public class DlgLogin extends JDialog {
 
+
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txtUsuario;
-	private JPasswordField txtPassword;
+	public static JTextField txtUsuario;
+	public static JPasswordField txtPassword;
 	public static JButton btnAceptar;
 	public static JButton btnCancelar;
+	public static JDialog ventana;
 
 	public DlgLogin() {
+		ventana = this;
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setModal(true);
 		setBounds(100, 100, 280, 170);
@@ -49,7 +51,7 @@ public class DlgLogin extends JDialog {
 		lblUsuario.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlPrincipal.add(lblUsuario);
 
-		txtUsuario = new JTextField();
+		txtUsuario = new JTextField(ctrl.CtrlGestConOracle.getConnInfon().getDbUSER());
 		pnlPrincipal.add(txtUsuario);
 		txtUsuario.setColumns(10);
 		
@@ -57,7 +59,7 @@ public class DlgLogin extends JDialog {
 		lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlPrincipal.add(lblPassword);
 		
-		txtPassword = new JPasswordField();
+		txtPassword = new JPasswordField(ctrl.CtrlGestConOracle.getConnInfon().getDbPASSWORD());
 		pnlPrincipal.add(txtPassword);
 		txtPassword.setColumns(10);
 		
@@ -73,7 +75,7 @@ public class DlgLogin extends JDialog {
 	private void crearEventos() {
 		
 		btnAceptar.addActionListener( e -> ctrl.CtrlDlgLogin.aceptar());
-		btnAceptar.addActionListener( e -> ctrl.CtrlDlgLogin.cancelar());
+		btnCancelar.addActionListener( e -> ctrl.CtrlDlgLogin.cancelar());
 		
 	}
 

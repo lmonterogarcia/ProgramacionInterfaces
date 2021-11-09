@@ -2,14 +2,19 @@ package ctrl;
 
 public class CtrlDlgConexion {
 
-	public static Object aceptar() {
-		// TODO Auto-generated method stub
-		return null;
+	public static void aceptar() {
+		
+		ctrl.CtrlGestConOracle.getConnInfon().setDbHOST(view.DlgConexion.txtHost.getText());
+		ctrl.CtrlGestConOracle.getConnInfon().setDbPORT(view.DlgConexion.txtPuerto.getText());
+		ctrl.CtrlGestConOracle.getConnInfon().setDbSID(view.DlgConexion.txtNombre.getText());
+		
+		view.DlgConexion.ventana.dispose();
+		
 	}
 
-	public static Object cancelar() {
-		// TODO Auto-generated method stub
-		return null;
+	public static void cancelar() {
+		
+		view.DlgConexion.ventana.dispose();
 	}
 
 }

@@ -8,21 +8,24 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 public class DlgConexion extends JDialog {
 
+
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	public static JTextField txtHost;
 	public static JTextField txtPuerto;
 	public static JTextField txtNombre;
 	public static JButton btnAceptar;
 	public static JButton btnCancelar;
+	public static JDialog ventana;
 
 	public DlgConexion() {
+		ventana = this;
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setModal(true);
 		setBounds(100, 100, 280, 180);
@@ -49,7 +52,7 @@ public class DlgConexion extends JDialog {
 		lblHost.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlPrincipal.add(lblHost);
 
-		txtHost = new JTextField();
+		txtHost = new JTextField(ctrl.CtrlGestConOracle.getConnInfon().getDbHOST());
 		pnlPrincipal.add(txtHost);
 		txtHost.setColumns(10);
 		
@@ -57,7 +60,7 @@ public class DlgConexion extends JDialog {
 		lblPuerto.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlPrincipal.add(lblPuerto);
 		
-		txtPuerto = new JTextField();
+		txtPuerto = new JTextField(ctrl.CtrlGestConOracle.getConnInfon().getDbPORT());
 		pnlPrincipal.add(txtPuerto);
 		txtPuerto.setColumns(10);
 		
@@ -65,7 +68,7 @@ public class DlgConexion extends JDialog {
 		lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlPrincipal.add(lblNombre);
 		
-		txtNombre = new JTextField();
+		txtNombre = new JTextField(ctrl.CtrlGestConOracle.getConnInfon().getDbSID());
 		pnlPrincipal.add(txtNombre);
 		txtNombre.setColumns(10);
 		
@@ -81,7 +84,7 @@ public class DlgConexion extends JDialog {
 	private void crearEventos() {
 		
 		btnAceptar.addActionListener( e -> ctrl.CtrlDlgConexion.aceptar());
-		btnAceptar.addActionListener( e -> ctrl.CtrlDlgConexion.cancelar());
+		btnCancelar.addActionListener( e -> ctrl.CtrlDlgConexion.cancelar());
 		
 	}
 

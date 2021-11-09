@@ -8,6 +8,7 @@ public class CtrlFrmPrincipal {
 	
 	public static void inicio() {
 		
+		ctrl.CtrlGestConOracle.readConnectionObject();
 		new view.FrmPrincipal();
 
 	}
@@ -17,7 +18,7 @@ public class CtrlFrmPrincipal {
 		int iOpcSeleccionada = JOptionPane.showConfirmDialog(null, "Desea salir?", "Asistente de salida",
 				JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
 		if (iOpcSeleccionada == JOptionPane.YES_OPTION) {
-
+			ctrl.CtrlGestConOracle.saveConnectionObject();
 			view.FrmPrincipal.ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		} else if (iOpcSeleccionada == JOptionPane.NO_OPTION) {
