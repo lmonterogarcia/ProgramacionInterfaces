@@ -1,7 +1,12 @@
 package ctrl;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 
 import javax.xml.parsers.*;
@@ -120,6 +125,27 @@ public class GestFchXML {
 			}
 		}
 		return listadoCiudades;
+	}
+
+	public static void downloadAemet(String sFecha, String fch) throws Exception {
+		String sUrl = "http://www.aemet.es/es/api-eltiempo/temperaturas/" + sFecha + "/PB";
+
+		File file = new File(fch);
+		URLConnection conn = new URL(sUrl).openConnection();
+		conn.connect();
+
+		InputStream in = conn.getInputStream();
+		OutputStream out = new FileOutputStream(file);
+		int b = 0;
+
+		while (b != -1) {
+			b = in.read();
+			if (b != -1) {
+				out.write(b);
+			}
+		}
+		out.close();
+		in.close();
 	}
 
 }
