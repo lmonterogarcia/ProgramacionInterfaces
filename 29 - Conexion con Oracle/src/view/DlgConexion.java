@@ -52,7 +52,7 @@ public class DlgConexion extends JDialog {
 		lblHost.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlPrincipal.add(lblHost);
 
-		txtHost = new JTextField(ctrl.CtrlGestConOracle.getConnInfon().getDbHOST());
+		txtHost = new JTextField(dbms.CtrlGestConOracle.getConnInfon().getDbHOST());
 		pnlPrincipal.add(txtHost);
 		txtHost.setColumns(10);
 		
@@ -60,7 +60,7 @@ public class DlgConexion extends JDialog {
 		lblPuerto.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlPrincipal.add(lblPuerto);
 		
-		txtPuerto = new JTextField(ctrl.CtrlGestConOracle.getConnInfon().getDbPORT());
+		txtPuerto = new JTextField(dbms.CtrlGestConOracle.getConnInfon().getDbPORT());
 		pnlPrincipal.add(txtPuerto);
 		txtPuerto.setColumns(10);
 		
@@ -68,7 +68,7 @@ public class DlgConexion extends JDialog {
 		lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlPrincipal.add(lblNombre);
 		
-		txtNombre = new JTextField(ctrl.CtrlGestConOracle.getConnInfon().getDbSID());
+		txtNombre = new JTextField(dbms.CtrlGestConOracle.getConnInfon().getDbSID());
 		pnlPrincipal.add(txtNombre);
 		txtNombre.setColumns(10);
 		

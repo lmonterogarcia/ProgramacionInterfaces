@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -18,6 +19,10 @@ import model.Provincia;
 public class CtrlFrmPrincipal {
 	
 	public static GestFchXML fchXML;
+	public static String[] arrayComunidades;
+	public static String[] arrayProvincias;
+	public static String[] arrayCiudades;
+	private static ArrayList<CcAa> listadoComunidades;
 
 	public static void inicio() {
 
@@ -29,8 +34,11 @@ public class CtrlFrmPrincipal {
 			e.printStackTrace();
 		}
 		fchXML = new GestFchXML(FILE_NAME);
+		listadoComunidades = ctrl.CtrlFrmPrincipal.fchXML.getCcAa();
 		new view.FrmPrincipal();
-		
+		crearDatosInicial();
+		mostrarTemperatura();
+	
 	}
 
 	public static void salir() {
@@ -47,66 +55,99 @@ public class CtrlFrmPrincipal {
 
 	}
 	
-	public static ArrayList<String> crearArrayComunidades() {
-		ArrayList<String> listadoComunidades = new ArrayList<String>();
-		for (CcAa ca : ctrl.CtrlFrmPrincipal.fchXML.getCcAa()) {
-			listadoComunidades.add(ca.getsNombre());
+	public static void crearArrayComunidades() {
+		arrayComunidades = null;
+		arrayComunidades = new String[listadoComunidades.size()];
+		for (int i = 0; i < arrayComunidades.length; i++) {
+			arrayComunidades[i] = listadoComunidades.get(i).getsNombre();
 		}
-		return listadoComunidades;
+		
+		view.FrmPrincipal.cbComunidad.removeAll();
+		rellenarComunidades();
+
 	}
 	
-	public static ArrayList<String> crearArrayProvincias(int iPosition) {
-		ArrayList<String> listadoProvincias = new ArrayList<String>();
-		for (Provincia pr : ctrl.CtrlFrmPrincipal.fchXML.getCcAa().get(iPosition).getListadoProvincias()) {
-			listadoProvincias.add(pr.getsNombre());
+	private static void rellenarComunidades() {
+		
+		for (String ccaa : arrayComunidades) {
+			view.FrmPrincipal.cbComunidad.add(ccaa);
 		}
-		return listadoProvincias;
+		
+	}
+
+	public static void crearArrayProvincias(int iPosition) {
+		
+		arrayProvincias = null;
+		arrayProvincias = new String[listadoComunidades.get(iPosition).getListadoProvincias().size()];
+		for (int i = 0; i < arrayProvincias.length; i++) {
+			arrayProvincias[i] = listadoComunidades.get(iPosition).getListadoProvincias().get(i).getsNombre();
+		}
+		view.FrmPrincipal.cbProvincia.removeAll();
+		rellenarProvincias();
+		
 	}
 	
-	public static ArrayList<String> crearArrayCiudades(int iPositionCcAa, int iPositionProv) {
-		ArrayList<String> listadoComunidades = new ArrayList<String>();
-		for (Ciudad ci : ctrl.CtrlFrmPrincipal.fchXML.getCcAa().get(iPositionCcAa).getListadoProvincias().get(iPositionProv).getListadoCiudades()) {
-			listadoComunidades.add(ci.getsNombre());
+	private static void rellenarProvincias() {
+		for (String provincia : arrayProvincias) {
+			view.FrmPrincipal.cbProvincia.add(provincia);
 		}
-		return listadoComunidades;
+		
+	}
+
+	public static void crearArrayCiudades(int iPositionCcAa, int iPositionProv) {
+		
+		arrayCiudades = null;
+		arrayCiudades = new String[listadoComunidades.get(iPositionCcAa).getListadoProvincias().get(iPositionProv).getListadoCiudades().size()];
+		for (int i = 0; i < arrayCiudades.length; i++) {
+			arrayCiudades[i] = listadoComunidades.get(iPositionCcAa).getListadoProvincias().get(iPositionProv).getListadoCiudades().get(i).getsNombre();
+		}
+		view.FrmPrincipal.cbCiudad.removeAll();
+		rellenarCiudades();
+
+	}
+	
+	private static void rellenarCiudades() {
+		for (String ciudad : arrayCiudades) {
+			view.FrmPrincipal.cbCiudad.add(ciudad);
+		}
+		
+	}
+
+	private static void crearDatosInicial() {
+		crearArrayComunidades();
+		crearArrayProvincias(0);
+		crearArrayCiudades(0, 0);
+		view.FrmPrincipal.cbProvincia.select(0);
+		view.FrmPrincipal.cbCiudad.select(0);
+		
+	}
+
+	private static void mostrarTemperatura() {
+		double dTempMin;
+		double dTempMax;
+		dTempMin = listadoComunidades.get(view.FrmPrincipal.cbComunidad.getSelectedIndex()).getListadoProvincias().get(view.FrmPrincipal.cbProvincia.getSelectedIndex()).getListadoCiudades().get(view.FrmPrincipal.cbCiudad.getSelectedIndex()).getdTempMin();
+		dTempMax = listadoComunidades.get(view.FrmPrincipal.cbComunidad.getSelectedIndex()).getListadoProvincias().get(view.FrmPrincipal.cbProvincia.getSelectedIndex()).getListadoCiudades().get(view.FrmPrincipal.cbCiudad.getSelectedIndex()).getdTempMax();
+		view.FrmPrincipal.lblTemperaturas.setText(dTempMin + " - " + dTempMax );
+		
 	}
 
 	public static void comunidadSeleccionada() {
-		view.FrmPrincipal.cbCiudad.removeAllItems();
-		view.FrmPrincipal.cbProvincia.removeAllItems();
-		view.FrmPrincipal.cbCiudad.setEnabled(false);
-		view.FrmPrincipal.cbProvincia.setEnabled(true);
-		ArrayList<String> listadoProvincias = crearArrayProvincias(view.FrmPrincipal.cbComunidad.getSelectedIndex());
-		for (String provincia : listadoProvincias) {
-			view.FrmPrincipal.cbProvincia.addItem(provincia);
-		}
-
+		
+		crearArrayProvincias(view.FrmPrincipal.cbComunidad.getSelectedIndex());
+		view.FrmPrincipal.cbProvincia.select(0);
+		provinciaSeleccionada();
+		
 	}
 
 	public static void provinciaSeleccionada() {
-		view.FrmPrincipal.cbCiudad.removeAllItems();
-		view.FrmPrincipal.cbCiudad.setEnabled(true);
-		ArrayList<String> listadoCiudades = crearArrayCiudades(view.FrmPrincipal.cbComunidad.getSelectedIndex(), view.FrmPrincipal.cbProvincia.getSelectedIndex());
-		for (String provincia : listadoCiudades) {
-			view.FrmPrincipal.cbCiudad.addItem(provincia);
-		}
-
+		
+		crearArrayCiudades(view.FrmPrincipal.cbComunidad.getSelectedIndex(), view.FrmPrincipal.cbProvincia.getSelectedIndex());
+		view.FrmPrincipal.cbCiudad.select(0);
+		ciudadSeleccionada();
 	}
 
 	public static void ciudadSeleccionada() {
-		double dTempMin;
-		double dTempMax;
-//		if (view.FrmPrincipal.cbCiudad.getSelectedIndex() != -1 && view.FrmPrincipal.cbProvincia.getSelectedIndex() != -1) {
-			dTempMin = ctrl.CtrlFrmPrincipal.fchXML.getCcAa().get(view.FrmPrincipal.cbComunidad.getSelectedIndex()).getListadoProvincias().get(view.FrmPrincipal.cbProvincia.getSelectedIndex()).getListadoCiudades().get(view.FrmPrincipal.cbCiudad.getSelectedIndex()).getdTempMin();
-			dTempMax = ctrl.CtrlFrmPrincipal.fchXML.getCcAa().get(view.FrmPrincipal.cbComunidad.getSelectedIndex()).getListadoProvincias().get(view.FrmPrincipal.cbProvincia.getSelectedIndex()).getListadoCiudades().get(view.FrmPrincipal.cbCiudad.getSelectedIndex()).getdTempMax();
-			
-//		} else {
-//			dTempMin = ctrl.CtrlFrmPrincipal.fchXML.getCcAa().get(view.FrmPrincipal.cbComunidad.getSelectedIndex()).getListadoProvincias().get(0).getListadoCiudades().get(0).getdTempMin();
-//			dTempMax = ctrl.CtrlFrmPrincipal.fchXML.getCcAa().get(view.FrmPrincipal.cbComunidad.getSelectedIndex()).getListadoProvincias().get(0).getListadoCiudades().get(0).getdTempMax();
-//			
-//		}
-		view.FrmPrincipal.lblTemperaturas.setText(dTempMin + " - " + dTempMax );
-		view.FrmPrincipal.lblTemperaturas.setVisible(true);
+		mostrarTemperatura();
 	}
 
 	public static void guardarPorDefecto() {

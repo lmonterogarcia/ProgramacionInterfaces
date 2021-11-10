@@ -7,7 +7,7 @@ public class CtrlDlgTest {
 		
 		String sMensaje;
 		
-		if (ctrl.CtrlGestConOracle.testDbOracle()) {
+		if (dbms.CtrlGestConOracle.testDbOracle()) {
 			sMensaje = "Se puede establecer conexion con la base de datos";
 		} else {
 			sMensaje = "No se puede establecer conexion con la base de datos";

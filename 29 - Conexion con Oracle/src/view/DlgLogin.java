@@ -51,7 +51,7 @@ public class DlgLogin extends JDialog {
 		lblUsuario.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlPrincipal.add(lblUsuario);
 
-		txtUsuario = new JTextField(ctrl.CtrlGestConOracle.getConnInfon().getDbUSER());
+		txtUsuario = new JTextField(dbms.CtrlGestConOracle.getConnInfon().getDbUSER());
 		pnlPrincipal.add(txtUsuario);
 		txtUsuario.setColumns(10);
 		
@@ -59,7 +59,7 @@ public class DlgLogin extends JDialog {
 		lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlPrincipal.add(lblPassword);
 		
-		txtPassword = new JPasswordField(ctrl.CtrlGestConOracle.getConnInfon().getDbPASSWORD());
+		txtPassword = new JPasswordField(dbms.CtrlGestConOracle.getConnInfon().getDbPASSWORD());
 		pnlPrincipal.add(txtPassword);
 		txtPassword.setColumns(10);
 		
