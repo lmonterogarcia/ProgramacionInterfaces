@@ -47,6 +47,11 @@ public class CtrlPrincipal {
 		view.FrmPrincipal.tblResultado.setModel(tableModel);
 		
 	}
+
+	public static void filaSeleccionada() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

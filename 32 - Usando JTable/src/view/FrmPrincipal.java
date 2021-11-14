@@ -7,8 +7,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+
+import org.w3c.dom.events.MouseEvent;
+
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import java.awt.event.MouseAdapter;
 
 public class FrmPrincipal extends JFrame {
 
@@ -49,8 +53,10 @@ public class FrmPrincipal extends JFrame {
 		tblResultado.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		tblResultado.addMouseListener(new MouseAdapter() {
-			
-		});
+			public void mouseClicked(MouseEvent e){
+			ctrl.CtrlPrincipal.filaSeleccionada();
+		}	
+		});  
 		
 		
 	}
