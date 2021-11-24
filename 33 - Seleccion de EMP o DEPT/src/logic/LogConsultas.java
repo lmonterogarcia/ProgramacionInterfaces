@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
-import model.Dept;
+import model.Chaleco;
 import oracle.jdbc.internal.OracleTypes;
 
 public class LogConsultas {
@@ -71,8 +71,8 @@ public class LogConsultas {
 		return listModel;
 	}
 
-	public static ArrayList<Dept> getListado() throws Exception {
-		ArrayList<Dept> aListadoDept = new ArrayList<Dept>();
+	public static ArrayList<Chaleco> getListado() throws Exception {
+		ArrayList<Chaleco> aListadoDept = new ArrayList<Chaleco>();
 
 		dbms.CtrlGestConOracle.openConn();
 
@@ -93,7 +93,7 @@ public class LogConsultas {
 //				for (int i = 1; i <= iNumCampos; i++) {
 //					System.out.print(resultado.getString(i) + "\t\t");
 //				}
-			Dept oDept = new Dept(resultado.getString("DEPTNO"), resultado.getString("DNAME"),
+			Chaleco oDept = new Chaleco(resultado.getString("DEPTNO"), resultado.getString("DNAME"),
 					resultado.getString("LOC"));
 			aListadoDept.add(oDept);
 
@@ -146,10 +146,10 @@ public class LogConsultas {
 		return iTotal;
 	}
 
-	public static ArrayList<Dept> getDepts()
+	public static ArrayList<Chaleco> getDepts()
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 
-		ArrayList<Dept> listadoDepartamentos = new ArrayList<Dept>();
+		ArrayList<Chaleco> listadoDepartamentos = new ArrayList<Chaleco>();
 
 		dbms.CtrlGestConOracle.openConn();
 
@@ -163,7 +163,7 @@ public class LogConsultas {
 
 		ResultSet resultado = (ResultSet) orden.getObject(1);
 		while (resultado.next()) {
-			listadoDepartamentos.add(new Dept(Integer.toString(resultado.getInt("DEPTNO")),
+			listadoDepartamentos.add(new Chaleco(Integer.toString(resultado.getInt("DEPTNO")),
 					resultado.getString("DNAME"), resultado.getString("LOC")));
 		}
 

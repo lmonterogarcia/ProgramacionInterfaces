@@ -127,7 +127,7 @@ public class CtrlFrmPrincipal {
 		double dTempMax;
 		dTempMin = listadoComunidades.get(view.FrmPrincipal.cbComunidad.getSelectedIndex()).getListadoProvincias().get(view.FrmPrincipal.cbProvincia.getSelectedIndex()).getListadoCiudades().get(view.FrmPrincipal.cbCiudad.getSelectedIndex()).getdTempMin();
 		dTempMax = listadoComunidades.get(view.FrmPrincipal.cbComunidad.getSelectedIndex()).getListadoProvincias().get(view.FrmPrincipal.cbProvincia.getSelectedIndex()).getListadoCiudades().get(view.FrmPrincipal.cbCiudad.getSelectedIndex()).getdTempMax();
-		view.FrmPrincipal.lblTemperaturas.setText(dTempMin + " - " + dTempMax );
+		view.FrmPrincipal.lblTemperaturas.setText(dTempMin + " // " + dTempMax );
 		
 	}
 

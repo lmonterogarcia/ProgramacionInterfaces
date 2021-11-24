@@ -24,16 +24,7 @@ public class FrmPrincipal extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FrmPrincipal frame = new FrmPrincipal();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		new FrmPrincipal();
 	}
 
 	/**
@@ -105,6 +96,6 @@ public class FrmPrincipal extends JFrame {
 			}
 		});
 		
-		
+		setVisible(true);
 	}
 }
