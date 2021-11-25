@@ -67,33 +67,56 @@ public class CtrlFrmPrincipal {
 	}
 
 	public static void menuEditar() {
-		new ctrl.CtrlDlgDetalleChaleco().detalleInicio(1, crearChaleco(getFila()));
+		try {
+			new ctrl.CtrlDlgDetalleChaleco().detalleInicio(1, crearChaleco(getFila()));
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Tiene que seleccionar un chaleco");
+		}
 	}
 
 	public static void menuBorrar() {
+
 		try {
-			logic.LogConsultas.borrar(Integer.parseInt(view.FrmPrincipal.tblChalecos.getValueAt(getFila(), 0).toString()));
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			int iFila = getFila();
+			int iOpcSeleccionada = JOptionPane.showConfirmDialog(null, "Esta seguro de borrar este chaleco?",
+					"Asistente de borrado", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+			if (iOpcSeleccionada == JOptionPane.YES_OPTION) {
+
+				try {
+					logic.LogConsultas
+							.borrar(Integer.parseInt(view.FrmPrincipal.tblChalecos.getValueAt(iFila, 0).toString()));
+				} catch (NumberFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InstantiationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				actualizar();
+
+			} else if (iOpcSeleccionada == JOptionPane.NO_OPTION) {
+
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Tiene que seleccionar un chaleco");
 		}
-		actualizar();
 	}
 
 	public static void menuConsultar() {
-		new ctrl.CtrlDlgDetalleChaleco().detalleInicio(2, crearChaleco(getFila()));
+		try {
+			new ctrl.CtrlDlgDetalleChaleco().detalleInicio(2, crearChaleco(getFila()));
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Tiene que seleccionar un chaleco");
+		}
 	}
 
 	private static Chaleco crearChaleco(int iFila) {
@@ -101,23 +124,23 @@ public class CtrlFrmPrincipal {
 		int iId = Integer.parseInt(view.FrmPrincipal.tblChalecos.getValueAt(iFila, 0).toString());
 		String sModelo = view.FrmPrincipal.tblChalecos.getValueAt(iFila, 1).toString();
 		int iColor = 0;
-		switch (view.FrmPrincipal.tblChalecos.getValueAt(iFila, 1).toString()) {
-		case "Rojo":
+		switch (view.FrmPrincipal.tblChalecos.getValueAt(iFila, 2).toString().toLowerCase()) {
+		case "rojo":
 			iColor = 0;
 			break;
-		case "Verde":
+		case "verde":
 			iColor = 1;
 			break;
-		case "Azul":
+		case "azul":
 			iColor = 2;
 			break;
-		case "Amarillo":
+		case "amarillo":
 			iColor = 3;
 			break;
 		}
 
 		int iTalla = 0;
-		switch (view.FrmPrincipal.tblChalecos.getValueAt(iFila, 1).toString()) {
+		switch (view.FrmPrincipal.tblChalecos.getValueAt(iFila, 3).toString()) {
 		case "S":
 			iTalla = 0;
 			break;

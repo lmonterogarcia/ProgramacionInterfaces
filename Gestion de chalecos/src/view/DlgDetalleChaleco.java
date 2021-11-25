@@ -125,24 +125,28 @@ public class DlgDetalleChaleco extends JDialog {
 		btnRojo.setBounds(69, 89, 30, 30);
 		btnRojo.setBackground(Color.RED);
 		btnRojo.setOpaque(true);
+		btnRojo.setBorderPainted(false);
 		contentPanel.add(btnRojo);
 		
 		btnAmarillo = new JButton();
 		btnAmarillo.setBounds(228, 89, 30, 30);
 		btnAmarillo.setBackground(Color.YELLOW);
 		btnAmarillo.setOpaque(true);
+		btnAmarillo.setBorderPainted(false);
 		contentPanel.add(btnAmarillo);
 		
 		btnAzul = new JButton();
 		btnAzul.setBounds(175, 89, 30, 30);
 		btnAzul.setBackground(Color.BLUE);
 		btnAzul.setOpaque(true);
+		btnAzul.setBorderPainted(false);
 		contentPanel.add(btnAzul);
 		
 		btnVerde = new JButton();
 		btnVerde.setBounds(122, 89, 30, 30);
 		btnVerde.setBackground(Color.GREEN);
 		btnVerde.setOpaque(true);
+		btnVerde.setBorderPainted(false);
 		contentPanel.add(btnVerde);
 		
 	}

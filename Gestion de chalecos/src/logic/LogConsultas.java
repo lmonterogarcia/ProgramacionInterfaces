@@ -80,29 +80,41 @@ public class LogConsultas {
 		return listModel;
 	}
 
-	public static void insertar(Chaleco oChaleco) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public static void insertar(Chaleco oChaleco)
+			throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 
-		dbms.CtrlGestConOracle.openConn();
-
-		
 		String sModelo = oChaleco.getsModelo();
 		int iColor = oChaleco.getiColor();
 		int iTalla = oChaleco.getiTalla();
 		double dPrecio = oChaleco.getdPrecio();
 		int iStock = oChaleco.getiStock();
-		
-		// INSERT INTO LUIS.CHALECO (MODELO,COLOR,TALLA,PRECIO,STOCK)
-		// VALUES ('Verano2',2,3,123.87,123);
-		Statement miOrden = dbms.CtrlGestConOracle.getConn().createStatement();
-		miOrden.execute("INSERT INTO CHALECO (ID_CHALECO, MODELO, COLOR, TALLA, PRECIO, STOCK) VALUES (SEQ_CHALECO.nextval,'" + sModelo
-				+ "', " + iColor + ", " + iTalla + ", " + dPrecio + ", " + iStock + ");");
 
+		dbms.CtrlGestConOracle.openConn();
+		Statement miOrden = dbms.CtrlGestConOracle.getConn().createStatement();
+		miOrden.execute(
+				"INSERT INTO CHALECO (ID_CHALECO, MODELO, COLOR, TALLA, PRECIO, STOCK) VALUES (SEQ_CHALECO.nextval,'"
+						+ sModelo + "', " + iColor + ", " + iTalla + ", " + dPrecio + ", " + iStock + ")");
+		miOrden.execute("COMMIT");
 		dbms.CtrlGestConOracle.closeConn();
 
 	}
 
-	public static void modificar(Chaleco modificarChaleco) {
-		// TODO Auto-generated method stub
+	public static void modificar(Chaleco oChaleco)
+			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+
+		int iIdChaleco = oChaleco.getiID();
+		String sModelo = oChaleco.getsModelo();
+		int iColor = oChaleco.getiColor();
+		int iTalla = oChaleco.getiTalla();
+		double dPrecio = oChaleco.getdPrecio();
+		int iStock = oChaleco.getiStock();
+
+		dbms.CtrlGestConOracle.openConn();
+		Statement miOrden = dbms.CtrlGestConOracle.getConn().createStatement();
+		miOrden.execute("UPDATE CHALECO SET MODELO = '" + sModelo + "', COLOR = " + iColor + ", TALLA = " + iTalla
+				+ ", PRECIO = " + dPrecio + ", STOCK = " + iStock + " WHERE ID_CHALECO = " + iIdChaleco);
+		miOrden.execute("COMMIT");
+		dbms.CtrlGestConOracle.closeConn();
 
 	}
 
