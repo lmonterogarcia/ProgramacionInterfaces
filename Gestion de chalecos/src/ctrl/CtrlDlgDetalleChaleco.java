@@ -64,10 +64,10 @@ public class CtrlDlgDetalleChaleco {
 		view.DlgDetalleChaleco.txtPrecio.setEditable(false);
 		view.DlgDetalleChaleco.txtStock.setEditable(false);
 		view.DlgDetalleChaleco.btnGuardar.setVisible(false);
-		view.DlgDetalleChaleco.btnRojo.setEnabled(false);
-		view.DlgDetalleChaleco.btnVerde.setEnabled(false);
-		view.DlgDetalleChaleco.btnAzul.setEnabled(false);
-		view.DlgDetalleChaleco.btnAmarillo.setEnabled(false);
+		view.DlgDetalleChaleco.btnRojo.setVisible(false);
+		view.DlgDetalleChaleco.btnVerde.setVisible(false);
+		view.DlgDetalleChaleco.btnAzul.setVisible(false);
+		view.DlgDetalleChaleco.btnAmarillo.setVisible(false);
 
 	}
 
