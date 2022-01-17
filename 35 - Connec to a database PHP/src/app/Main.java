@@ -14,52 +14,68 @@ import model.Coche;
 
 public class Main {
 
-	static final String URI = "http://bestipescook.es/Javi/";
+	static final String URI = "http://bestipescook.es/Luis/";
 	
 	public static void main(String[] args) {
 		
 		try {
+			
+			// Insertar un coche
+			Coche a = new Coche("Peugeot", 2500);
+			System.out.println(insCoche(a));
+			
+			// Borrar coche
+			
+			
 			// Listado de coche
 			List<Coche> lstCoches = getCoches();
 			lstCoches.forEach(c -> System.out.println(c));
 			
 			// obtener un solo coche
-			//Coche c = getCoche(0);
-			//System.out.println(c);
+			Coche d = getCoche(1);
+			System.out.println(d);
 			
 		} catch (Exception e) {
 		
 			System.err.println("Fallo: " + e.getMessage());
 			
-			
-		}
-		
-		try {
-			
-		} catch (Exception e) {
-			// TODO: handle exception
 		}
 
+	}
+
+	private static String insCoche(Coche a) throws Exception {
+		String sMensaje;
+		String url = URI + "ins_coche.php?txtMarca=" + a.getsMarca() + "&txtPotencia=" + a.getiPotencia();
+		System.out.println(url);
+		String requestHttp = peticionHttp(url);
+		System.out.println(requestHttp);
+		if (requestHttp.equals("200")) {
+			sMensaje = "Se ha insertado el coche";
+		} else {
+			sMensaje = "No se ha podido insertar el coche";
+		}
+		
+		return sMensaje;
+		
 	}
 
 	private static Coche getCoche(int id) throws Exception {
-		String url = URI + "get-coche.php?id=" + id;
+		String url = URI + "get_coche.php?txtId=" + id;
 		String requestHttp = peticionHttp(url);
-		Coche  c = stringToCoches(requestHttp);
-		return null;
+		Coche  c = stringToCoche(requestHttp);
+		return c;
 	}
 
-	private static Coche stringToCoches(String requestHttp) {		
+	private static Coche stringToCoche(String requestHttp) {		
 		
-		JSONArray jsonArr = new JSONArray(requestHttp);
-		JSONObject jsonObj = jsonArr.getJSONObject(0);
+		JSONObject jsonObj = new JSONObject(requestHttp);
 			
 		return objJson2Coche(jsonObj);
 	}
 
 	private static List<Coche> getCoches() throws Exception{
 		 
-		String url = URI + "lst-coche.php";
+		String url = URI + "lst_coche.php";
 		String requestHttp = peticionHttp(url);
 		List<Coche>  lstCoches = stringToListCoches(requestHttp);
 		 
@@ -82,7 +98,7 @@ public class Main {
 			sbResult.append(linea);
 		}
 		
-		return sbResult.toString();
+		return sbResult.toString().trim();
 	}
 	
 	private static List<Coche> stringToListCoches(String requestHttp) {
@@ -104,13 +120,14 @@ public class Main {
 	private static Coche objJson2Coche(JSONObject jsonObj) {
 		
 		// Extraer los values del obj json
-		Integer iId = jsonObj.getInt("id");
+		Integer iId = jsonObj.getInt("id_coche");
 		String sMarca = jsonObj.getString("marca");
-		String sModelo = jsonObj.getString("modelo");
+		//String sModelo = jsonObj.getString("modelo");
 		Integer iPotencia = jsonObj.getInt("potencia");
 		
 		
-		return new Coche(iId, sMarca, sModelo, iPotencia);
+		//return new Coche(iId, sMarca, sModelo, iPotencia);
+		return new Coche(iId, sMarca, iPotencia);
 	}
 
 }

@@ -18,12 +18,23 @@ public class Coche {
 		this.sModelo = sModelo;
 		this.iPotencia = iPotencia;
 	}
-
-
+	
+	public Coche(Integer iId, String sMarca, Integer iPotencia) {
+		this.iId = iId;
+		this.sMarca = sMarca;
+		this.sModelo = "modelo";
+		this.iPotencia = iPotencia;
+	}
 
 	public Coche(String sMarca, String sModelo, Integer iPotencia) {
 		this.sMarca = sMarca;
 		this.sModelo = sModelo;
+		this.iPotencia = iPotencia;
+	}
+	public Coche(String sMarca, Integer iPotencia) {
+		this.iId = 0;
+		this.sMarca = sMarca;
+		this.sModelo = "modelo";
 		this.iPotencia = iPotencia;
 	}
 
@@ -58,6 +69,13 @@ public class Coche {
 	public void setiPotencia(Integer iPotencia) {
 		this.iPotencia = iPotencia;
 	}
+
+	@Override
+	public String toString() {
+		return "Coche [iId=" + iId + ", sMarca=" + sMarca + ", sModelo=" + sModelo + ", iPotencia=" + iPotencia + "]";
+	}
+	
+	
 	
 	
 }
